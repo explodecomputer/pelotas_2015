@@ -2,6 +2,16 @@
 
 source ../../config
 
+# Get summary statistics on original data
+
+plink1.90 \
+	--bfile ${datadir}/geno_qc \
+	--freq \
+	--missing \
+	--hardy \
+	--out ../results/geno_qc
+
+
 # Perform simple QC
 # Don't need to run this!!
 
@@ -14,7 +24,7 @@ plink1.90 \
 	--out ${datadir}/geno_qc
 
 
-# Get summary statistics
+# Get summary statistics on QC'd data
 
 plink1.90 \
 	--bfile ${datadir}/geno_qc \
@@ -24,3 +34,16 @@ plink1.90 \
 	--out ../results/geno_qc
 
 
+# Estimate principal components
+# Don't need to run this either!!
+
+plink1.90 \
+	--bfile ${datadir}/geno_qc \
+	--make-grm-bin \
+	--maf 0.01 \
+	--out ${datadir}/geno_qc
+
+gcta64 \
+	--grm ${datadir}/geno_qc \
+	--pca \
+	--out ../results/geno_qc

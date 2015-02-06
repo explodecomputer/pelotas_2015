@@ -1,4 +1,4 @@
-load("../../randomise_data/phen.RData")
+load("../../data/phen/phen.RData")
 
 # These data have been simulated based on distributions estimated from a Danish general population study
 
@@ -27,23 +27,15 @@ tapply(phen$lbmi, covars$sex, sd)
 # weight / height^2, and average height is different in males and females
 
 # Adjust for sex 
-
-# Function to standardise values to have mean 0 and variance 1
-standardise <- function(x)
-{
-	(x - mean(x, na.rm=T)) / sd(x, na.rm=T)
-}
-
-
 phen$bmi_adjusted <- phen$lbmi
 
-# standardise males
+# scale males
 index <- covars$sex==1
-phen$bmi_adjusted[index] <- standardise(phen$bmi_adjusted[index])
+phen$bmi_adjusted[index] <- scale(phen$bmi_adjusted[index])
 
-# standardise females
+# scale females
 index <- covars$sex==2
-phen$bmi_adjusted[index] <- standardise(phen$bmi_adjusted[index])
+phen$bmi_adjusted[index] <- scale(phen$bmi_adjusted[index])
 
 # No more association of mean or variance with sex
 tapply(phen$bmi_adjusted, covars$sex, mean)
