@@ -30,9 +30,9 @@ if(small)
         a <- a[sample(1:nrow(a), 500000, repl=F)]
 }
 
-qqplotpval(a$P, paste("../images/", trait, "_qqplot.png", sep=""))
+qqplotpval(a$P, paste(infile, "_qqplot.png", sep=""))
 
-png(file=paste("../images/", trait, "_manhattan.png", sep=""))
-manhattan(a, main=paste("../images/", trait, "Manhattan plot"))
+png(file=paste(infile, "_manhattan.png", sep=""))
+manhattan(a, main=paste(trait, "Manhattan plot"))
 dev.off()
 
