@@ -113,35 +113,42 @@ Should include covariates and PCs
 	- Hardy-Weinberg Equilibrium
 	- Genotype missingness
 
-		cd ~/pelotas_2015/gwas/scripts
-		./summary_stats.sh
+			cd ~/pelotas_2015/gwas/scripts
+			./summary_stats.sh
 
 	- Generate some graphs from the summary statistics
 
-		R --no-save --args ../results/geno < summary_stats.R
+			R --no-save --args ../results/geno < summary_stats.R
 
-3. Perform QC steps for the genotype data, and save the cleaned genotype data with filename `geno_qc`
+3. Look at the script to perform QC steps for the genotype data, and save the cleaned genotype data with filename `geno_qc`
 
         ./qc.sh
 
-4. Perform QC steps for the phenotype data
+4. Perform QC steps for the phenotype data. What is being done here and why?
 
         R --no-save < qc.R
 
-5. Perform the GWAS twice, once on the raw and cleaned data
+5. Perform the GWAS twice, once with and once without covariates. Note: running with covariates will be very slow, the important thing is to understand the script, but the results are already generated in the `../results` directory
 
-        ./gwas.sh
+        ./run_gwas.sh
 
 6. Generate graphs to visualise the data. Look at the Manhattan plots in `../images` - how many significant signals are there? Is there a difference between GWAS results from cleaned and uncleaned data? Look at the Q-Q plots - is there evidence for signals being driven by population stratification?
 
-		./gwas_graphs.sh
+	R --no-save < gwas_graphs.R
 
 7. There are many SNPs under each significance peak, this is most likely due to a single **causal variant** with a large number of SNPs that have large test statistics simply because they are in linkage disequilibrium with the causal variant. We can simplify the results by generating a list of independent signals by 'clumping' the data
 
-		./clump.sh
+	./clump.sh
 
-8. Let's take a closer look at the significant hits. Look at the `results/*.clumped` files, and feed the top few hits into the UCSC genome browser at (http://genome.ucsc.edu/cgi-bin/hgGateway)[http://genome.ucsc.edu/cgi-bin/hgGateway].
 
-9. What is the best way to verify whether these signals are real?
+### Bioinformatics session
 
-10. Are the effect size estimates likely to be accurate?
+8. Let's take a closer look at the significant hits. Look at the `results/*.clumped` files, and feed the top few hits into the [http://genome.ucsc.edu/cgi-bin/hgGateway](UCSC genome browser).
+
+9. We can see if there are genomic annotations in the same region as our hits. Navigate to the [http://www.broadinstitute.org/mammals/haploreg/haploreg_v3.php](Haploreg) website and enter the top few hits into the search box.
+
+10. Going deeper, we could test our results for pathway enrichment, e.g. using the [http://david.abcc.ncifcrf.gov/summary.jsp](DAVID functional annotation tool)
+
+11. What is the best way to verify whether these signals are real?
+
+12. Are the effect size estimates likely to be accurate?
