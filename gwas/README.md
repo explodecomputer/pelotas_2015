@@ -11,7 +11,11 @@ Genome wide association studies
 
 # Instructions
 
-Here you'll find information about all the above objectives and some questions at the bottom of the page. All the scripts to perform the analysis are provided, but **please read through the scripts** so that you understand what is being done and how it is being implemented.
+Here you'll find information about all the above objectives and some questions at the bottom of the page. All the scripts to perform the analysis are provided, but
+
+> **please read through the scripts** 
+
+so that you understand what is being done and how it is being implemented.
 
 The folder structure has been written in a way to mimic how one might set up the analysis for a real GWAS. Scripts are located in the `scripts/` folder, graphs will be saved to `images/`, output from the various analysis in `results/` and any data generated for the analysis will be in `data/`.
 
@@ -100,8 +104,8 @@ Should include covariates and PCs
 
 1. Find the genotype data and find out how many SNPs and how many individuals are present.
 
-		wc -l /data/geno.bim
-		wc -l /data/geno.fam
+		wc -l /panfs/panasas01/shared/alspac/pelotas_teaching_material/data/geno.bim
+		wc -l /panfs/panasas01/shared/alspac/pelotas_teaching_material/data/geno.fam
 
 2. Calculate summary statistics on the genotype data including
 

@@ -41,7 +41,11 @@ pcs <- read.table(file.path(workdir, "data/geno/geno.eigenvec"))
 bmi <- standardise(gen$bmi) * sqrt(0.06) + 
 	standardise(gen$bmip) * sqrt(0.15) + 
 	standardise(smoke) * sqrt(0.001) +
-	rsnorm(n, 0, sqrt(1-0.06-0.15), 10)
+	standardise(pcs$V3) * sqrt(0.06) +
+	standardise(pcs$V4) * sqrt(0.06) +
+	standardise(pcs$V6) * sqrt(0.06) +
+	standardise(pcs$V8) * sqrt(0.06) +
+	rsnorm(n, 0, sqrt(1-0.06-0.15-0.24), 10)
 
 bmi <- (bmi - mean(bmi))/sd(bmi)
 
@@ -91,7 +95,8 @@ crp <- crpsbp +
 	standardise(gen$crpp) * sqrt(0.3) + 
 	standardise(gen$crp) * sqrt(0.06) + 
 	standardise(smoke) * sqrt(0.002) +
-	rnorm(n, 0, sqrt(1 - 0.01 - 0.001 - 0.125 - 0.3 - 0.06))
+	standardise(pcs$V5) * sqrt(0.1) +
+	rnorm(n, 0, sqrt(1 - 0.01 - 0.001 - 0.125 - 0.3 - 0.06 - 0.1))
 
 
 # Simulate SBP and DBP
@@ -139,7 +144,7 @@ table(hypertension)
 
 phen <- data.frame(fid=fam$V1, iid=fam$V2, bmi=bmi, dbp=dbp, sbp=sbp, crp=hscrp, hypertension=hypertension)
 
-covars <- pcs
+covars <- pcs[,1:12]
 covars$age <- age
 covars$sex <- sex
 covars$smoke <- smoke
