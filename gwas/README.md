@@ -122,7 +122,7 @@ Should include covariates and PCs
 
 3. Look at the script to perform QC steps for the genotype data, and save the cleaned genotype data with filename `geno_qc`
 
-        ./qc.sh
+		./qc.sh
 
 4. Perform QC steps for the phenotype data. What is being done here and why?
 
@@ -134,11 +134,11 @@ Should include covariates and PCs
 
 6. Generate graphs to visualise the data. Look at the Manhattan plots in `../images` - how many significant signals are there? Is there a difference between GWAS results from cleaned and uncleaned data? Look at the Q-Q plots - is there evidence for signals being driven by population stratification?
 
-	R --no-save < gwas_graphs.R
+		R --no-save < gwas_graphs.R
 
 7. There are many SNPs under each significance peak, this is most likely due to a single **causal variant** with a large number of SNPs that have large test statistics simply because they are in linkage disequilibrium with the causal variant. We can simplify the results by generating a list of independent signals by 'clumping' the data
 
-	./clump.sh
+		./clump.sh
 
 
 ### Bioinformatics session
