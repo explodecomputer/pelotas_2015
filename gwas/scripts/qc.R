@@ -79,3 +79,4 @@ summary(glm(I(phen$hypertension-1) ~ as.matrix(covars[,-c(1:2)]), family="binomi
 # Save adjusted phenotypes
 phen <- with(phen, data.frame(fid, iid, bmi_adjusted, lcrp, hypertension))
 write.table(phen, "../data/phen.txt", row=F, col=F, qu=F)
+write.table(covars, "../data/covs.txt", row=F, col=F, qu=F)
