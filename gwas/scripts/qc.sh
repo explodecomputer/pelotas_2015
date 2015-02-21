@@ -5,11 +5,11 @@ source ../../config
 # Get summary statistics on original data
 
 plink1.90 \
-	--bfile ${datadir}/geno_qc \
+	--bfile ${datadir}/geno \
 	--freq \
 	--missing \
 	--hardy \
-	--out ../results/geno_qc
+	--out ../results/geno
 
 
 # Perform simple QC

@@ -19,20 +19,19 @@ qqplotpval <- function(P, filename=NULL)
 
 arguments <- commandArgs(T)
 infile <- arguments[1]
-trait <- arguments[2]
-small <- as.logical(arguments[3])
+outdir <- arguments[2]
 
 a <- read.table(infile, he=T)
 a$CHR <- as.numeric(a$CHR)
+a <- subset(a, P != 0)
 
-if(small)
-{
-        a <- a[sample(1:nrow(a), 500000, repl=F)]
-}
 
-qqplotpval(a$P, paste(infile, "_qqplot.png", sep=""))
+qqfilename <- paste(file.path(outdir, basename(infile)), "_qqplot.png", sep="")
+manhattanfilename <- paste(file.path(outdir, basename(infile)), "_manhattan.png", sep="")
 
-png(file=paste(infile, "_manhattan.png", sep=""))
-manhattan(a, main=paste(trait, "Manhattan plot"))
+qqplotpval(a$P, qqfilename)
+
+png(file=manhattanfilename)
+manhattan(a, main=paste(basename(infile), "Manhattan plot"))
 dev.off()
 

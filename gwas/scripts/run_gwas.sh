@@ -50,6 +50,7 @@ plink1.90 \
 	--mpheno 1 \
 	--out ../results/bmi
 
+awk 'NR==1 || /ADD/' ../results/bmi.assoc.linear > ../results/bmi.assoc.linear.add
 
 # CRP
 
@@ -61,6 +62,7 @@ plink1.90 \
 	--mpheno 2 \
 	--out ../results/crp
 
+awk 'NR==1 || /ADD/' ../results/crp.assoc.linear > ../results/crp.assoc.linear.add
 
 # Hypertension
 
@@ -72,3 +74,4 @@ plink1.90 \
 	--mpheno 3 \
 	--out ../results/hypertension
 
+awk 'NR==1 || /ADD/' ../results/hypertension.assoc.logistic > ../results/hypertension.assoc.logistic.add
