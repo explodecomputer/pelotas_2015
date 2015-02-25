@@ -2,48 +2,38 @@
 
 source ../../config
 
-# Get summary statistics on original data
-
-plink1.90 \
-	--bfile ${datadir}/geno_unclean \
-	--freq \
-	--missing \
-	--hardy \
-	--out ../results/geno_unclean
 
 
-# Perform simple QC
-# Don't need to run this!!
+############################
+# Don't need to run this!! #
+############################
 
-plink1.90 \
-	--bfile ${datadir}/geno_unclean \
-	--maf 0.01 \
-	--hwe 1e-6 \
-	--geno 0.05 \
-	--make-bed \
-	--out ${datadir}/geno_qc
+# This is how to filter genotype data on maf, hwe and missingness
 
-
-# Get summary statistics on QC'd data
-
-plink1.90 \
-	--bfile ${datadir}/geno_qc \
-	--freq \
-	--missing \
-	--hardy \
-	--out ../results/geno_qc
+# plink1.90 \
+# 	--bfile ${datadir}/geno_unclean \
+# 	--maf 0.01 \
+# 	--hwe 1e-6 \
+# 	--geno 0.05 \
+# 	--mind 0.05 \
+# 	--make-bed \
+# 	--out ${datadir}/geno_qc
 
 
-# Estimate principal components
-# Don't need to run this either!!
 
-plink1.90 \
-	--bfile ${datadir}/geno_qc \
-	--make-grm-bin \
-	--maf 0.01 \
-	--out ${datadir}/geno_qc
+###################################
+# Don't need to run this either!! #
+###################################
 
-gcta64 \
-	--grm ${datadir}/geno_qc \
-	--pca \
-	--out ../results/geno_qc
+# This is how to calculate the principal components from genotype data
+
+# plink1.90 \
+# 	--bfile ${datadir}/geno_qc \
+# 	--make-grm-bin \
+# 	--maf 0.01 \
+# 	--out ${datadir}/geno_qc
+
+# gcta64 \
+# 	--grm ${datadir}/geno_qc \
+# 	--pca \
+# 	--out ../results/geno_qc

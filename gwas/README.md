@@ -83,7 +83,11 @@ Calculate summary statistics on the genotype data including
 
 		R --no-save --args ../results/geno < summary_stats.R
 
-Use WinSCP to download these graphs to your local computer to view them.
+Use WinSCP to download these graphs to your local computer to view them. They are:
+
+- `../images/unclean_maf.pdf`
+- `../images/unclean_maf2.pdf`
+- `../images/unclean_hwe.png`
 
 
 ### Exercise 3
@@ -94,17 +98,16 @@ Clean the genotype data. This means:
 - Remove rare SNPs (MAF < 0.01)
 - Remove SNPs that have high rates of missing information
 
-We can do this using the following script:
+We can do this using the `qc.sh` script. **NOTE: YOU DON'T NEED TO RUN THIS, JUST READ AND UNDERSTAND THE SCRIPT**
 
-> **NOTE: YOU DON'T NEED TO RUN THIS, JUST READ AND UNDERSTAND THE SCRIPT**
-
-		# ./qc.sh
 		less qc.sh
+
+The QC'd data is already generated and can be found at `/pelotas_data/geno_qc.bed`, `/pelotas_data/geno_qc.bim` and `/pelotas_data/geno_qc.fam`
 
 
 ## Phenotype data
 
-Things to consider 
+Things to consider:
 
 - For continuous traits are they normally distributed?
 - Are there any outliers?
@@ -118,30 +121,57 @@ Work through the commands in the R script called `qc.R` to visualise and clean t
 
 This file will generate some graphs, transform phenotypes and remove outliers, test for associations between traits and covariates, and save the cleaned phenotype data to a text file.
 
-
-## Quality control
-
-Performing QC is very important, here are some routine things to consider:
-
-- Are SNPs in Hardy Weinburg Equilibrium
-- Remove low MAF SNPs (e.g. < 0.01)
-- Remove individuals and SNPs with high missingness (e.g. > 0.05)
-- Phenotypes should be normalised
-- Some variables should be adjusted for variance effects
-- Identify population outliers
-
-
-### Things that need reporting
-- Genotyping call rate after exclusions
-- Number of individuals and SNPs after exclusions
-- Trait distribution
+> Question: Why is it a problem to have outliers or non-normal data in GWAS?
 
 
 ## Performing GWAS
 
-Ideally we would use a proper linear model but in the interests of time we will use a fast score statistic
+We are going to compare GWAS using
 
-Should include covariates and PCs
+a. Uncleaned data and no covariates
+b. Cleaned data with covariates
+
+Because **b.** is fitting a properl linear model for each SNP these normally take quite long to run (e.g. > 30 minutes for our dataset) so the results have already been generated using the `run_gwas_full.sh` command, the results can be found at 
+
+- `/pelotas_data/gwas/bmi.assoc.linear.add`
+- `/pelotas_data/gwas/crp.assoc.linear.add`
+- `/pelotas_data/gwas/hypertension.assoc.logistic.add`
+
+However, the results for **a.** still need to be generated. 
+
+### Exercise 5
+
+Perform the GWAS using an approximate association test which runs very fast but doesn't fit covariates.
+
+		./run_gwas_fast.sh
+
+To visualise the results we will generate Q-Q plots and Manhattan plots. Run the following script:
+
+		./gwas_graphs.sh
+
+This will generate the following Manhattan plots
+
+- `../images/bmi.assoc.linear.add_manhattan.png`
+- `../images/crp.assoc.linear.add_manhattan.png`
+- `../images/hypertension.assoc.logistic.add_manhattan.png`
+
+- `../images/bmi.qassoc_manhattan.png`
+- `../images/crp.qassoc_manhattan.png`
+- `../images/hypertension.assoc_manhattan.png`
+
+And the following Q-Q plots
+
+- `../images/bmi.assoc.linear.add_qqplot.png`
+- `../images/crp.assoc.linear.add_qqplot.png`
+- `../images/hypertension.assoc.logistic.add_qqplot.png`
+
+- `../images/bmi.qassoc_qqplot.png`
+- `../images/crp.qassoc_qqplot.png`
+- `../images/hypertension.assoc_qqplot.png`
+
+Use WinSCP to download them to your local computer to view them.
+
+
 
 ## Post processing
 

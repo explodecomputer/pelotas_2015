@@ -143,7 +143,7 @@ covars <- pcs[,1:12]
 covars$age <- age
 covars$sex <- sex
 covars$smoke <- smoke
-
+names(covars)[1:12] <- c("FID", "IID", paste("PC",1:10, sep=""))
 
 # Introduce some outliers
 
