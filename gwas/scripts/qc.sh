@@ -5,18 +5,18 @@ source ../../config
 # Get summary statistics on original data
 
 plink1.90 \
-	--bfile ${datadir}/geno \
+	--bfile ${datadir}/geno_unclean \
 	--freq \
 	--missing \
 	--hardy \
-	--out ../results/geno
+	--out ../results/geno_unclean
 
 
 # Perform simple QC
 # Don't need to run this!!
 
 plink1.90 \
-	--bfile ${datadir}/geno \
+	--bfile ${datadir}/geno_unclean \
 	--maf 0.01 \
 	--hwe 1e-6 \
 	--geno 0.05 \

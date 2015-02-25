@@ -3,11 +3,6 @@ library(fGarch)
 
 workdir <- commandArgs(T)
 
-standardise <- function(x)
-{
-	(x - mean(x, na.rm=T)) / sd(x, na.rm=T)
-}
-
 # Execute ${workdir}/randomise_data/generate_randomised_shuffled.sh
 # Execute ${workdir}/randomise_data/phen/genetic_values.sh
 
@@ -38,13 +33,13 @@ pcs <- read.table(file.path(workdir, "data/geno/geno.eigenvec"))
 # Assume genetic profile explains 8% of variance and poly explains 15%
 # Give BMI skewed distribution
 
-bmi <- standardise(gen$bmi) * sqrt(0.06) + 
-	standardise(gen$bmip) * sqrt(0.15) + 
-	standardise(smoke) * sqrt(0.001) +
-	standardise(pcs$V3) * sqrt(0.06) +
-	standardise(pcs$V4) * sqrt(0.06) +
-	standardise(pcs$V6) * sqrt(0.06) +
-	standardise(pcs$V8) * sqrt(0.06) +
+bmi <- scale(gen$bmi) * sqrt(0.06) + 
+	scale(gen$bmip) * sqrt(0.15) + 
+	scale(smoke) * sqrt(0.001) +
+	scale(pcs$V3) * sqrt(0.06) +
+	scale(pcs$V4) * sqrt(0.06) +
+	scale(pcs$V6) * sqrt(0.06) +
+	scale(pcs$V8) * sqrt(0.06) +
 	rsnorm(n, 0, sqrt(1-0.06-0.15-0.24), 10)
 
 bmi <- (bmi - mean(bmi))/sd(bmi)
@@ -92,10 +87,10 @@ crpdbp <- rnorm(n, sd=sqrt(0.001))
 crp <- crpsbp + 
 	crpdbp + 
 	bmi * sqrt(0.125) + 
-	standardise(gen$crpp) * sqrt(0.3) + 
-	standardise(gen$crp) * sqrt(0.06) + 
-	standardise(smoke) * sqrt(0.002) +
-	standardise(pcs$V5) * sqrt(0.1) +
+	scale(gen$crpp) * sqrt(0.3) + 
+	scale(gen$crp) * sqrt(0.06) + 
+	scale(smoke) * sqrt(0.002) +
+	scale(pcs$V5) * sqrt(0.1) +
 	rnorm(n, 0, sqrt(1 - 0.01 - 0.001 - 0.125 - 0.3 - 0.06 - 0.1))
 
 
@@ -108,19 +103,19 @@ crp <- crpsbp +
 # cor(dbp, sbp)
 
 dbp <- rnorm(n, 0, sqrt(1 - 0.061 - 0.001 - 0.5)) + 
-	standardise(bmi) * sqrt(0.061) + 
+	scale(bmi) * sqrt(0.061) + 
 	crpsbp + 
 	gen$dbp +
-	standardise(gen$bpp) * sqrt(0.5) +
+	scale(gen$bpp) * sqrt(0.5) +
 	sex * 0.1
 
 ds <- abs(rnorm(n, 0, sqrt(1/0.21-1)))
 
 sbp <- dbp + 
 	ds + 
-	standardise(bmi) * sqrt(0.02) + 
+	scale(bmi) * sqrt(0.02) + 
 	gen$sbp + 
-	standardise(smoke) * sqrt(0.001) +
+	scale(smoke) * sqrt(0.001) +
 	sex * 0.1
 
 cor(dbp, sbp)
@@ -148,6 +143,15 @@ covars <- pcs[,1:12]
 covars$age <- age
 covars$sex <- sex
 covars$smoke <- smoke
+
+
+# Introduce some outliers
+
+phen$bmi[100] <- phen$bmi[100] + 80
+phen$bmi[1000] <- phen$bmi[1000] / 5
+phen$crp[500] <- phen$crp[500] + 300
+
+
 
 # Check that instruments are associated with what we expect
 
