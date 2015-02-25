@@ -46,12 +46,16 @@ nl ${outfile}.fam.orig | awk '{ print "id"$1, "id"$1, "0", "0", $6, $7 }' > ${ou
 plink1.90 --bfile ${outfile} --check-sex --out ${outfile}
 
 # Create SNP chip dataset
-
 plink1.90 --bfile ${outfile} --extract ${scratchdir}/snpchiplist.txt --out ${outfile2}
-
 
 # Create GRM (10 minutes, 15 threads)
 plink1.90 --bfile ${outfile2} --make-grm-bin --maf 0.01 --out ${outfile2}
 
 # Construct PCs (7 minutes)
 gcta64 --grm ${outfile2} --pca --out ${outfile2}
+
+# Make bad SNPs
+R --no-save < ~/repo/pelotas_2015/data/scripts/make_bad_snps.R
+plink1.90 --file ${scratchdir}/bad_snps --make-bed --out ${scratchdir}/bad_snps
+plink1.90 --bfile ${outfile2} --bmerge ${scratchdir}/bad_snps --make-bed --out ${outfile2}_unclean
+

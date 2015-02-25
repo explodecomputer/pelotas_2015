@@ -41,7 +41,7 @@ Finally we'll draw some graphs to visualise the results, identify significant as
 Most of the data manipulation and some of the analysis will be run using [plink2](https://www.cog-genomics.org/plink2/). It is currently in beta (technically still `plink1.90`), but for most functions is stable and is extremely fast compared to the [original plink](http://pngu.mgh.harvard.edu/~purcell/plink/). It can be used for the vast majority of genetic analyses that are routinely performed, and the syntax is pretty simple and straightforward. Refer to the documentation to get more details about what it can do and how routines are implemented.
 
 
-## Data
+## Genotype data
 
 The data is in 'binary plink' format data, which requires 3 files for each dataset. The `.fam` file has information about the individuals - family ID, individual ID, father, mother, sex, phenotype. Note that we can specify a different phenotype file to analyse a different phenotype so that we don't have to change the genotype data.
 
@@ -49,23 +49,74 @@ The `.bim` file has information about the SNPs in the data - chromosome, SNP nam
 
 The `.bed` file is a binary file which encodes the genotypes for every individual and every SNP, representing an *n* individual x *m* SNP matrix. This is not human readable because the data is packed for fast loading and low memory usage.
 
-Some things to consider before starting the analysis:
+
+### Exercise 1
+
+Familiarise ourselves with the data:
 
 - How many individuals are there?
+
+		wc -l /pelotas_data/geno.fam
+
 - How many SNPs?
+
+		wc -l /pelotas_data/geno.bim
+
 - How many chromosomes?
-- Genotyped or imputed?
-- What is the SNP density?
-- Is there population structure?
-- Are there related individuals?
+
+		awk '{ print $1 }' /pelotas_data/geno.bim | uniq
 
 
-### Phenotype data
 
-- Is the trait continuous or dichotomous?
-- How have the subjects been chosen?
+### Exercise 2
+
+Calculate summary statistics on the genotype data including
+
+- Allele frequency distribution
+- Hardy-Weinberg Equilibrium
+- Genotype missingness
+
+		cd ~/pelotas_2015/gwas/scripts
+		./summary_stats.sh
+
+- Generate some graphs from the summary statistics
+
+		R --no-save --args ../results/geno < summary_stats.R
+
+Use WinSCP to download these graphs to your local computer to view them.
+
+
+### Exercise 3
+
+Clean the genotype data. This means:
+
+- Remove SNPs in Hardy Weinberg Disequilibrium
+- Remove rare SNPs (MAF < 0.01)
+- Remove SNPs that have high rates of missing information
+
+We can do this using the following script:
+
+> **NOTE: YOU DON'T NEED TO RUN THIS, JUST READ AND UNDERSTAND THE SCRIPT**
+
+		# ./qc.sh
+		less qc.sh
+
+
+## Phenotype data
+
+Things to consider 
+
+- For continuous traits are they normally distributed?
+- Are there any outliers?
 - Are there covariates?
-- How many individuals with genotype, trait and covariate data?
+- Are the covariates associated with the traits?
+
+
+### Exercise 4
+
+Work through the commands in the R script called `qc.R` to visualise and clean the phenotype data.
+
+This file will generate some graphs, transform phenotypes and remove outliers, test for associations between traits and covariates, and save the cleaned phenotype data to a text file.
 
 
 ## Quality control
@@ -101,11 +152,6 @@ Should include covariates and PCs
 
 
 ## Questions
-
-1. Find the genotype data and find out how many SNPs and how many individuals are present.
-
-		wc -l /panfs/panasas01/shared/alspac/pelotas_teaching_material/data/geno.bim
-		wc -l /panfs/panasas01/shared/alspac/pelotas_teaching_material/data/geno.fam
 
 2. Calculate summary statistics on the genotype data including
 
