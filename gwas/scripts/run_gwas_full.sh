@@ -41,4 +41,4 @@ plink1.90 \
 	--mpheno 3 \
 	--out ${datadir}/results/hypertension
 
-awk 'NR==1 || /ADD/' ${datadir}/results/hypertension.assoc.logistic > ${datadir}/results/hypertension.assoc.logistic.add
+awk 'NR==1 || /ADD/' ${datadir}/results/hypertension.assoc.logistic | grep -L "NA" > ${datadir}/results/hypertension.assoc.logistic.add

@@ -102,7 +102,7 @@ Clean the genotype data. This means:
 
 We can do this using the `qc.sh` script. **NOTE:** This has already been run once you just need to understand what the script is doing
 
-		less qc.sh
+	less qc.sh
 
 The QC'd data is already generated and can be found at `/pelotas_data/geno_qc.bed`, `/pelotas_data/geno_qc.bim` and `/pelotas_data/geno_qc.fam`
 
@@ -111,12 +111,6 @@ The QC'd data is already generated and can be found at `/pelotas_data/geno_qc.be
 
 Things to consider:
 
-- For continuous traits are they normally distributed?
-- Are there any outliers?
-- Are there covariates?
-- Are the covariates associated with the traits?
-
-How will each of these factors influence the performance of our GWAS?
 
 ### Exercise 4
 
@@ -124,7 +118,13 @@ Work through the commands in the R script called `qc.R` to visualise and clean t
 
 This file will generate some graphs, transform phenotypes and remove outliers, test for associations between traits and covariates, and save the cleaned phenotype data to a text file.
 
-> Question: Why is it a problem to have outliers or non-normal data in GWAS?
+**_Questions:_**
+
+> 1. For continuous traits are they normally distributed?
+> 2. Are there any outliers?
+> 3. Are there covariates?
+> 4. Are the covariates associated with the traits?
+> 5. How will each of these factors influence the performance of our GWAS?
 
 
 ## Performing GWAS
@@ -143,14 +143,14 @@ Because **b.** is fitting a proper linear model for each SNP these normally take
 - `/pelotas_data/gwas/crp.assoc.linear.add`
 - `/pelotas_data/gwas/hypertension.assoc.logistic.add`
 
-However, the results for **a.** still need to be generated. Perform the GWAS using an approximate association test which runs very fast but doesn't fit covariates.
+However, the results for **a.** can be generated quickly. Perform the GWAS using an approximate association test which runs very fast but doesn't fit covariates.
 
 		./run_gwas_fast.sh
 
 
 ### Exercise 6
 
-We now have two GWAS results for each trait - let's compare them. To visualise the results we will generate Q-Q plots and Manhattan plots. Run the following script:
+We now have two GWAS results for each trait - let's compare them. To visualise the results we will generate Manhattan plots and Q-Q plots. Run the following script:
 
 		./gwas_graphs.sh
 
@@ -161,86 +161,58 @@ The Manhattan plots allow us to visualise if there are any genome-wide significa
 
 The first is for the fast analysis and the second is for the full analysis. The plots for the other traits are in the same directory. Use WinSCP to download them to your local computer to view them.
 
-_Questions:_
-1. What is the significance threshold and why?
-2. We see rather different results from the two methods. How might the differences occur due to:
-	- Covariates
-	- QC on the phenotypes
-	- QC on the genotypes
+**_Questions:_**
 
+> 1. What is the significance threshold and why?
+> 2. We see rather different results from the two methods. How might the differences occur due to:
+> 	- Including covariates?
+> 	- QC on the phenotypes?
+> 	- QC on the genotypes?
+> 	- Using an approximate test statistic?
+> 3. Why do we see many significant SNPs under each peak?
 
-The Q-Q plots 
-
-
-- `../images/crp.qassoc_manhattan.png`
-- `../images/hypertension.assoc_manhattan.png`
-
-And the following Q-Q plots
-
-- `../images/bmi.assoc.linear.add_qqplot.png`
-- `../images/crp.assoc.linear.add_qqplot.png`
-- `../images/hypertension.assoc.logistic.add_qqplot.png`
+The Q-Q plots are in the same directory:
 
 - `../images/bmi.qassoc_qqplot.png`
-- `../images/crp.qassoc_qqplot.png`
-- `../images/hypertension.assoc_qqplot.png`
+- `../images/bmi.assoc.linear.add_qqplot.png`
 
 Use WinSCP to download them to your local computer to view them.
 
+**_Questions:_**
+
+> 1. What shape Q-Q plot do we expect to see under the null hypothesis?
+> 2. What value of lambda do we expect to see under the null hypothesis?
+> 3. What technical artifacts can cause lambda to have a higher than expected value?
+> 3. Are there any scenarios where we could have a large value of lambda due to real biological causes?
 
 
-## Post processing
 
-- Significance thresholds
-- Manhattan plot
-- Q-Q plot
-- Clumping
+### Exercise 7
 
+There are hundreds of 'significant' SNPs, but only a few significantly associated regions in the genome. This is most likely due to a single **causal variant** with a large number of SNPs that have large test statistics simply because they are in linkage disequilibrium with the causal variant. It is convenient to identify the top SNP from each region in order to use in subsequent analysis such as functional annotation or Mendelian randomisation. We can use a process called 'clumping' to do this. This takes the top hit in the genome, and then removes all SNPs that are in LD with it (above a specified $r^2$ threshold and within a specified distance). It then does the same for the next top hit, and continues until there are no more significant hits apart from the iteratively selected significant independent SNPs.
 
-## Questions
+We can clump our results using the following script:
 
-2. Calculate summary statistics on the genotype data including
+	./clump.sh
 
-	- Allele frequency distribution
-	- Hardy-Weinberg Equilibrium
-	- Genotype missingness
+Look at the results in `../results/*.clumped`. How many significant independent SNPs are there? We can estimate the proportion of the phenotypic variance explained by that SNP using the following code in R (e.g. supposing our sample size is 8000 and the p-value is $1e^{-8}$:
 
-			cd ~/pelotas_2015/gwas/scripts
-			./summary_stats.sh
+	p <- 1e-8
+	n <- 8000
+	Fval <- qf(p, 1, n-1, lower.tail=FALSE)
+	varexp <- Fval / (n - 1 + Fval)
 
-	- Generate some graphs from the summary statistics
-
-			R --no-save --args ../results/geno < summary_stats.R
-
-3. Look at the script to perform QC steps for the genotype data, and save the cleaned genotype data with filename `geno_qc`
-
-		./qc.sh
-
-4. Perform QC steps for the phenotype data. What is being done here and why?
-
-        R --no-save < qc.R
-
-5. Perform the GWAS twice, once with and once without covariates. Note: running with covariates will be very slow, the important thing is to understand the script, but the results are already generated in the `../results` directory
-
-        ./run_gwas.sh
-
-6. Generate graphs to visualise the data. Look at the Manhattan plots in `../images` - how many significant signals are there? Is there a difference between GWAS results from cleaned and uncleaned data? Look at the Q-Q plots - is there evidence for signals being driven by population stratification?
-
-		R --no-save < gwas_graphs.R
-
-7. There are many SNPs under each significance peak, this is most likely due to a single **causal variant** with a large number of SNPs that have large test statistics simply because they are in linkage disequilibrium with the causal variant. We can simplify the results by generating a list of independent signals by 'clumping' the data
-
-		./clump.sh
+*_Questions:_*
+> 1. How much variance has been explained by our significantly detected SNPs?
+> 2. What does this tell us about the genetic architecture of our phenotype?
 
 
-### Bioinformatics session
+# Bioinformatics session
 
-8. Let's take a closer look at the significant hits. Look at the `results/*.clumped` files, and feed the top few hits into the [http://genome.ucsc.edu/cgi-bin/hgGateway](UCSC genome browser).
+1. Let's take a closer look at the significant hits. Look at the `results/*.clumped` files, and feed the top few hits into the [http://genome.ucsc.edu/cgi-bin/hgGateway](UCSC genome browser).
 
-9. We can see if there are genomic annotations in the same region as our hits. Navigate to the [http://www.broadinstitute.org/mammals/haploreg/haploreg_v3.php](Haploreg) website and enter the top few hits into the search box.
+2. We can see if there are genomic annotations in the same region as our hits. Navigate to the [http://www.broadinstitute.org/mammals/haploreg/haploreg_v3.php](Haploreg) website and enter the top few hits into the search box.
 
-10. Going deeper, we could test our results for pathway enrichment, e.g. using the [http://david.abcc.ncifcrf.gov/summary.jsp](DAVID functional annotation tool)
+3. Going deeper, we could test our results for pathway enrichment, e.g. using the [http://david.abcc.ncifcrf.gov/summary.jsp](DAVID functional annotation tool)
 
-11. What is the best way to verify whether these signals are real?
-
-12. Are the effect size estimates likely to be accurate?
+4. What is the best way to verify whether these signals are real?
