@@ -17,6 +17,21 @@ Here you'll find information about all the above objectives and some questions a
 
 so that you understand what is being done and how it is being implemented.
 
+
+## Setup
+
+After you have logged into the server you should find a folder called `pelotas_2015` in your home directory:
+
+	ls -l
+
+This folder has all the scripts you'll need for the GWAS practical. If the folder is not there you can download it with the following command:
+
+	git clone https://github.com/explodecomputer/pelotas_2015.git
+
+It will take a few moments to download. Navigate to the `gwas` folder:
+
+	cd pelotas_2015/gwas
+
 The folder structure has been written in a way to mimic how one might set up the analysis for a real GWAS. Scripts are located in the `scripts/` folder, graphs will be saved to `images/`, output from the various analysis in `results/` and any data generated for the analysis will be in `data/`.
 
 
@@ -202,7 +217,7 @@ Look at the results in `../results/*.clumped`. How many significant independent 
 	Fval <- qf(p, 1, n-1, lower.tail=FALSE)
 	varexp <- Fval / (n - 1 + Fval)
 
-*_Questions:_*
+**_Questions:_**
 > 1. How much variance has been explained by our significantly detected SNPs?
 > 2. What does this tell us about the genetic architecture of our phenotype?
 
