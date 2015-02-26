@@ -15,9 +15,9 @@ plink1.90 \
 	--covar ../data/covs.txt \
 	--pheno ../data/phen.txt \
 	--mpheno 1 \
-	--out ../results/bmi
+	--out ${datadir}/results/bmi
 
-awk 'NR==1 || /ADD/' ../results/bmi.assoc.linear > ../results/bmi.assoc.linear.add
+awk 'NR==1 || /ADD/' ${datadir}/results/bmi.assoc.linear > ${datadir}/results/bmi.assoc.linear.add
 
 # CRP
 
@@ -27,9 +27,9 @@ plink1.90 \
 	--covar ../data/covs.txt \
 	--pheno ../data/phen.txt \
 	--mpheno 2 \
-	--out ../results/crp
+	--out ${datadir}/results/crp
 
-awk 'NR==1 || /ADD/' ../results/crp.assoc.linear > ../results/crp.assoc.linear.add
+awk 'NR==1 || /ADD/' ${datadir}/results/crp.assoc.linear > ${datadir}/results/crp.assoc.linear.add
 
 # Hypertension
 
@@ -39,6 +39,6 @@ plink1.90 \
 	--covar ../data/covs.txt \
 	--pheno ../data/phen.txt \
 	--mpheno 3 \
-	--out ../results/hypertension
+	--out ${datadir}/results/hypertension
 
-awk 'NR==1 || /ADD/' ../results/hypertension.assoc.logistic > ../results/hypertension.assoc.logistic.add
+awk 'NR==1 || /ADD/' ${datadir}/results/hypertension.assoc.logistic > ${datadir}/results/hypertension.assoc.logistic.add

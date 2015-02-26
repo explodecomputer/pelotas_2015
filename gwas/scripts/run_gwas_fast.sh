@@ -10,29 +10,29 @@ source ../../config
 # BMI
 
 plink1.90 \
-	--bfile ${datadir}/geno_qc \
+	--bfile ${datadir}/geno_unclean \
 	--assoc \
 	--pheno ../data/phen.txt \
 	--mpheno 1 \
-	--out ../results/bmi
+	--out ${datadir}/results/bmi
 
 
 # CRP
 
 plink1.90 \
-	--bfile ${datadir}/geno_qc \
+	--bfile ${datadir}/geno_unclean \
 	--assoc \
 	--pheno ../data/phen.txt \
 	--mpheno 2 \
-	--out ../results/crp
+	--out ${datadir}/results/crp
 
 
 # Hypertension
 
 plink1.90 \
-	--bfile ${datadir}/geno_qc \
+	--bfile ${datadir}/geno_unclean \
 	--assoc \
 	--pheno ../data/phen.txt \
 	--mpheno 3 \
-	--out ../results/hypertension
+	--out ${datadir}/results/hypertension
 

@@ -10,14 +10,14 @@ source ../../config
 
 # This is how to filter genotype data on maf, hwe and missingness
 
-# plink1.90 \
-# 	--bfile ${datadir}/geno_unclean \
-# 	--maf 0.01 \
-# 	--hwe 1e-6 \
-# 	--geno 0.05 \
-# 	--mind 0.05 \
-# 	--make-bed \
-# 	--out ${datadir}/geno_qc
+plink1.90 \
+ 	--bfile ${datadir}/geno_unclean \
+ 	--maf 0.01 \
+ 	--hwe 1e-6 \
+ 	--geno 0.05 \
+ 	--mind 0.05 \
+ 	--make-bed \
+ 	--out ${datadir}/geno_qc
 
 
 

@@ -41,6 +41,8 @@ Finally we'll draw some graphs to visualise the results, identify significant as
 Most of the data manipulation and some of the analysis will be run using [plink2](https://www.cog-genomics.org/plink2/). It is currently in beta (technically still `plink1.90`), but for most functions is stable and is extremely fast compared to the [original plink](http://pngu.mgh.harvard.edu/~purcell/plink/). It can be used for the vast majority of genetic analyses that are routinely performed, and the syntax is pretty simple and straightforward. Refer to the documentation to get more details about what it can do and how routines are implemented.
 
 
+# Practical
+
 ## Genotype data
 
 The data is in 'binary plink' format data, which requires 3 files for each dataset. The `.fam` file has information about the individuals - family ID, individual ID, father, mother, sex, phenotype. Note that we can specify a different phenotype file to analyse a different phenotype so that we don't have to change the genotype data.
@@ -98,7 +100,7 @@ Clean the genotype data. This means:
 - Remove rare SNPs (MAF < 0.01)
 - Remove SNPs that have high rates of missing information
 
-We can do this using the `qc.sh` script. **NOTE: YOU DON'T NEED TO RUN THIS, JUST READ AND UNDERSTAND THE SCRIPT**
+We can do this using the `qc.sh` script. **NOTE:** This has already been run once you just need to understand what the script is doing
 
 		less qc.sh
 
@@ -114,6 +116,7 @@ Things to consider:
 - Are there covariates?
 - Are the covariates associated with the traits?
 
+How will each of these factors influence the performance of our GWAS?
 
 ### Exercise 4
 
@@ -126,36 +129,49 @@ This file will generate some graphs, transform phenotypes and remove outliers, t
 
 ## Performing GWAS
 
-We are going to compare GWAS using
+We are going to compare the way GWAS results are influenced if we use:
 
 a. Uncleaned data and no covariates
 b. Cleaned data with covariates
 
-Because **b.** is fitting a properl linear model for each SNP these normally take quite long to run (e.g. > 30 minutes for our dataset) so the results have already been generated using the `run_gwas_full.sh` command, the results can be found at 
+
+### Exercise 5
+
+Because **b.** is fitting a proper linear model for each SNP these normally take quite long to run (e.g. > 30 minutes for our dataset) so the results have already been generated using the `run_gwas_full.sh` command, the results can be found at:
 
 - `/pelotas_data/gwas/bmi.assoc.linear.add`
 - `/pelotas_data/gwas/crp.assoc.linear.add`
 - `/pelotas_data/gwas/hypertension.assoc.logistic.add`
 
-However, the results for **a.** still need to be generated. 
-
-### Exercise 5
-
-Perform the GWAS using an approximate association test which runs very fast but doesn't fit covariates.
+However, the results for **a.** still need to be generated. Perform the GWAS using an approximate association test which runs very fast but doesn't fit covariates.
 
 		./run_gwas_fast.sh
 
-To visualise the results we will generate Q-Q plots and Manhattan plots. Run the following script:
+
+### Exercise 6
+
+We now have two GWAS results for each trait - let's compare them. To visualise the results we will generate Q-Q plots and Manhattan plots. Run the following script:
 
 		./gwas_graphs.sh
 
-This will generate the following Manhattan plots
-
-- `../images/bmi.assoc.linear.add_manhattan.png`
-- `../images/crp.assoc.linear.add_manhattan.png`
-- `../images/hypertension.assoc.logistic.add_manhattan.png`
+The Manhattan plots allow us to visualise if there are any genome-wide significant signals, and to get an idea of how well behaved the analysis has been. The Manhattan plots for BMI can be found here:
 
 - `../images/bmi.qassoc_manhattan.png`
+- `../images/bmi.assoc.linear.add_manhattan.png`
+
+The first is for the fast analysis and the second is for the full analysis. The plots for the other traits are in the same directory. Use WinSCP to download them to your local computer to view them.
+
+_Questions:_
+1. What is the significance threshold and why?
+2. We see rather different results from the two methods. How might the differences occur due to:
+	- Covariates
+	- QC on the phenotypes
+	- QC on the genotypes
+
+
+The Q-Q plots 
+
+
 - `../images/crp.qassoc_manhattan.png`
 - `../images/hypertension.assoc_manhattan.png`
 
