@@ -58,7 +58,7 @@ Most of the data manipulation and some of the analysis will be run using [plink2
 
 # Practical
 
-## Genotype data
+## Cleaning genotype data
 
 The data is in 'binary plink' format data, which requires 3 files for each dataset. The `.fam` file has information about the individuals - family ID, individual ID, father, mother, sex, phenotype. Note that we can specify a different phenotype file to analyse a different phenotype so that we don't have to change the genotype data.
 
@@ -119,13 +119,10 @@ We can do this using the `qc.sh` script. **NOTE:** This has already been run onc
 
 	less qc.sh
 
-The QC'd data is already generated and can be found at `/pelotas_data/geno_qc.bed`, `/pelotas_data/geno_qc.bim` and `/pelotas_data/geno_qc.fam`
+The pre generated QC'd data is can be found at `/pelotas_data/geno_qc.*`.
 
 
-## Phenotype data
-
-Things to consider:
-
+## Cleaning phenotype data
 
 ### Exercise 4
 
@@ -152,7 +149,7 @@ b. Cleaned data with covariates
 
 ### Exercise 5
 
-Because **b.** is fitting a proper linear model for each SNP these normally take quite long to run (e.g. > 30 minutes for our dataset) so the results have already been generated using the `run_gwas_full.sh` command, the results can be found at:
+Because **b.** is fitting a proper linear model for each SNP the routine can take quite a long to run (e.g. > 30 minutes for our dataset) so the results have already been generated using the `run_gwas_full.sh` command, the results can be found at:
 
 - `/pelotas_data/gwas/bmi.assoc.linear.add`
 - `/pelotas_data/gwas/crp.assoc.linear.add`
@@ -160,14 +157,14 @@ Because **b.** is fitting a proper linear model for each SNP these normally take
 
 However, the results for **a.** can be generated quickly. Perform the GWAS using an approximate association test which runs very fast but doesn't fit covariates.
 
-		./run_gwas_fast.sh
+	./run_gwas_fast.sh
 
 
 ### Exercise 6
 
 We now have two GWAS results for each trait - let's compare them. To visualise the results we will generate Manhattan plots and Q-Q plots. Run the following script:
 
-		./gwas_graphs.sh
+	./gwas_graphs.sh
 
 The Manhattan plots allow us to visualise if there are any genome-wide significant signals, and to get an idea of how well behaved the analysis has been. The Manhattan plots for BMI can be found here:
 
