@@ -33,38 +33,21 @@ readGRM <- function(rootname)
 }
 
 
-hm3 <- readGRM("../data/geno_hm3")
-met <- readGRM("../data/geno_metabochip")
+geno <- readGRM("../data/geno_qc")
 
 
 # What does the matrix look like?
-head(hm3$grm, 20)
+head(geno$grm, 20)
 
 # Distribution of diagonals
-pdf("../images/hm3_diags.pdf")
-hist(subset(hm3$grm, id1 == id2)$grm)
-dev.off()
-
-pdf("../images/met_diags.pdf")
-hist(subset(met$grm, id1 == id2)$grm)
-dev.off()
-
-png("../images/met_hm3_diags.png")
-plot(subset(met$grm, id1 == id2)$grm, subset(hm3$grm, id1 == id2)$grm)
+pdf("../images/geno_diags.pdf")
+hist(subset(geno$grm, id1 == id2)$grm, breaks=100, xlab="Diagonal elements of GRM", main="")
 dev.off()
 
 
 # Distribution of off-diagonals
-pdf("../images/hm3_odiags.pdf")
-hist(subset(hm3$grm, id1 != id2)$grm[1:100000])
-dev.off()
-
-pdf("../images/met_odiags.pdf")
-hist(subset(met$grm, id1 != id2)$grm[1:100000])
-dev.off()
-
-png("../images/met_hm3_odiags.png")
-plot(subset(met$grm, id1 == id2)$grm[1:1000000], subset(hm3$grm, id1 == id2)$grm[1:1000000])
-abline(lm(subset(hm3$grm, id1 == id2)$grm[1:1000000] ~ subset(met$grm, id1 == id2)$grm[1:1000000]), col="red")
+# Only plotting the first 100000 pairs of individuals in the interests of time!
+pdf("../images/geno_offdiags.pdf")
+hist(subset(geno$grm, id1 != id2)$grm[1:100000], breaks=100, xlab="Diagonal elements of GRM", main="")
 dev.off()
 

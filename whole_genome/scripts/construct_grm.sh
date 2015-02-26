@@ -2,18 +2,11 @@
 
 source ../../config
 
-plink1.90 \
-	--bfile ${datadir}/geno \
-	--make-grm-bin \
-	--extract ../data/hapmap3_autosome.snplist \
-	--maf 0.01 \
-	--out ../data/geno_hm3
+# Probably takes about 5 minutes
 
 plink1.90 \
-	--bfile ${datadir}/geno \
+	--bfile ${datadir}/geno_qc \
 	--make-grm-bin \
-	--extract ../data/metabochip.snplist \
 	--maf 0.01 \
-	--out ../data/geno_metabochip
-
+	--out ../data/geno_qc
 

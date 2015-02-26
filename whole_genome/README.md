@@ -31,32 +31,32 @@ Update the repository
     cd ~/pelotas_2015
     git pull
 
-If you wish to use pre-computed GRMs instead of recalculating them yourselves then see then copy them from the shared space:
 
-    cp /global/geneticepi/geno_hm3.grm* ~/wits/whole_genome/data/
-    cp /global/geneticepi/geno_metabochip.grm* ~/wits/whole_genome/data/
+Make sure that the QC'd phenotype and covariate file from the GWAS are available in `../../gwas/data`. If not run:
 
-Make sure that the QC'd phen file from the GWAS is available, i.e. run:
-
-    cd ~/wits/gwas/scripts/
+    cd ~/pelotas_2015/gwas/scripts/
     R --no-save < qc.R
 
-This will generate a the file `~/wits/gwas/data/phen.txt`.
+This will generate the files `~/pelotas_2015/gwas/data/phen.txt` and `~/pelotas_2015/gwas/data/covs.txt`.
 
 ## Exercises
 
-1. Construct the genetic relationship matrix using HM3 SNPs and metabochip SNPs
+1. Construct the genetic relationship matrix using the QC'd SNPs in the `geno_qc` data:
 
-        cd ~/wits/whole_genome/scripts
+        cd ~/pelotas_2015/whole_genome/scripts
         ./construct_grm.sh
 
-2. What are the SNP heritabilities for each of the traits? See `estimate_heritability.sh`
-3. Why is it important to make sure related individuals are not included in this analysis?
-4. Use BLUP to predict each of the three traits
+If this is running slowly then you can use pre-computed GRMs then copy the pre-computed GRM files from the shared space:
 
-        ./prediction.sh
+	    cp /pelotas_data/whole_genome/geno_qc.grm* ~/pelotas_2015/whole_genome/data/
 
-5. Estimate the number of SNPs that influence the trait. See `prediction.R`
-6. Estimate the heritability fitting the metabochip GRM and whole genome HM3 GRM jointly. See `estimate_heritability.sh`. What can we infer from these results?
-7. Perform bivariate analysis to calculate genetic correlations between each pair of traits. See `estimate_heritability.sh`.
-8. Construct two GRMs, one using chromosomes 1-8 and another using 9-22. Estimate the heritability of each GRM separately and both combined. Is the sum of heritabilities for each chromosome the same as that for the entire genome?
+
+2. Calculate SNP heritabilities with and without covariates. What are the SNP heritabilities for each of the traits and how do the estimates differ when covariates are not included? See `estimate_heritability.sh`
+
+
+3. We have now calculated a genetic relationship value for every pair of individuals. If the sample comprises only 'unrelated' individuals then each pair of individuals should have a genetic relationship less than 0.05 (and a relationship with themselves of approximately 1). We can use the `analyse_grm.R` script to read in the GRM files into R and plot the distribution of relationships. Why is it important to make sure that related individuals are not included in this analysis?
+
+
+4. Perform bivariate analysis to calculate genetic correlations between each pair of traits. See `estimate_heritability.sh`.
+
+5. Construct two GRMs, one using chromosomes 1-8 and another using 9-22. Estimate the heritability of each GRM separately and both combined. Do this with and without covariates included. Is the sum of heritabilities for each chromosome the same as that for the entire genome? See `grm_partitioning.sh`.

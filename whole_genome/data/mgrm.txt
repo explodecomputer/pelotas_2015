@@ -1,2 +1,0 @@
-../data/geno_metabochip
-../data/geno_hm3
