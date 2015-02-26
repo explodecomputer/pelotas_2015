@@ -41,22 +41,22 @@ This will generate the files `~/pelotas_2015/gwas/data/phen.txt` and `~/pelotas_
 
 ## Exercises
 
-1. Construct the genetic relationship matrix using the QC'd SNPs in the `geno_qc` data:
+1. 	Construct the genetic relationship matrix using the QC'd SNPs in the `geno_qc` data:
 
         cd ~/pelotas_2015/whole_genome/scripts
         ./construct_grm.sh
 
-If this is running slowly then you can use pre-computed GRMs then copy the pre-computed GRM files from the shared space:
+	If this is running slowly then you can use pre-computed GRMs then copy the pre-computed GRM files from the shared space:
 
 	    cp /pelotas_data/whole_genome/geno_qc.grm* ~/pelotas_2015/whole_genome/data/
 
 
-2. Calculate SNP heritabilities with and without covariates. What are the SNP heritabilities for each of the traits and how do the estimates differ when covariates are not included? See `estimate_heritability.sh`
+2. 	Calculate SNP heritabilities with and without covariates. What are the SNP heritabilities for each of the traits and how do the estimates differ when covariates are not included? See `estimate_heritability.sh`
 
 
-3. We have now calculated a genetic relationship value for every pair of individuals. If the sample comprises only 'unrelated' individuals then each pair of individuals should have a genetic relationship less than 0.05 (and a relationship with themselves of approximately 1). We can use the `analyse_grm.R` script to read in the GRM files into R and plot the distribution of relationships. Why is it important to make sure that related individuals are not included in this analysis?
+3. 	We have now calculated a genetic relationship value for every pair of individuals. If the sample comprises only 'unrelated' individuals then each pair of individuals should have a genetic relationship less than 0.05 (and a relationship with themselves of approximately 1). We can use the `analyse_grm.R` script to read in the GRM files into R and plot the distribution of relationships. Why is it important to make sure that related individuals are not included in this analysis?
 
 
-4. Perform bivariate analysis to calculate genetic correlations between each pair of traits. See `estimate_heritability.sh`.
+4. 	Perform bivariate analysis to calculate genetic correlations between each pair of traits. See `estimate_heritability.sh`.
 
-5. Construct two GRMs, one using chromosomes 1-8 and another using 9-22. Estimate the heritability of each GRM separately and both combined. Do this with and without covariates included. Is the sum of heritabilities for each chromosome the same as that for the entire genome? See `grm_partitioning.sh`.
+5. 	Construct two GRMs, one using chromosomes 1-8 and another using 9-22. Estimate the heritability of each GRM separately and both combined. Do this with and without covariates included. Is the sum of heritabilities for each chromosome the same as that for the entire genome? See `grm_partitioning.sh`.
