@@ -28,16 +28,8 @@ When genetic similarity is calculated by using SNPs then we are no longer estima
 
 Update the repository
 
-    cd ~/wits
+    cd ~/pelotas_2015
     git pull
-
-Put the GCTA programme in your path
-
-    cp bin/gcta64 ~/bin
-
-And make sure you can run it:
-
-    gcta64
 
 If you wish to use pre-computed GRMs instead of recalculating them yourselves then see then copy them from the shared space:
 
