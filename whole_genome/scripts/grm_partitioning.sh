@@ -1,6 +1,35 @@
 #!/bin/bash
 
+# the ../ is a shortcut for specifying the directory above the current working directory
+# an alternative way of writing ../ would be to write the full path, in this instance:
+# ~/pelotas_2015/whole_genome/ is being substitute by ../
+
+# The data directory and the work directory are imported from the ../../config file using this line of code. They are stored in the variables ${datadir} and ${workdir}
+
 source ../../config
+
+# Objective: 
+# Split the genome into two halves
+# Calculate GRM for first half and second half
+# Estimate SNP-h2 for each half and then jointly
+# Do this with and without covariates being included
+
+
+# --bfile         Location of genotype data
+# --make-grm-bin  Calculate GRM
+# --maf           Don't use SNPs below this MAF for calculating GRM
+# --extract       Only use SNPs specified in this file to create GRM
+# --out           Where to save output
+
+# --grm           Location of the GRM files
+# --mgrm          Location of text file specifying all GRM files to be included
+# --reml          Perform REML analysis
+# --reml-no-lrt   Don't run the likelihood test at the end of the REML
+# --pheno         Location of phenotype file
+# --mpheno        Which column in phen file to analyse
+# --qcovar        Location of covariates file
+# --thread        How many threads to use
+
 
 
 # Get SNP IDs from chr1-8

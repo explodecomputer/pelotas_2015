@@ -5,6 +5,10 @@ Whole genome methods practical
 
 The use of very simple, single SNP approaches have actually been very successful in genetic studies. However, with the introduction of whole genome methods the scope of what we might be able to learn from genetic data has broadened significantly. Here we'll look at some of the fundamentals.
 
+The purpose of GWAS is to identify particular SNPs that we are certain have an influence on a trait. In contrast, the purpose of a GCTA style 'GREML' (Genetic REML) or 'SNP heritability' analysis is to estimate how much of the variance of the phenotype can be explained by all the measured SNPs in our data.
+
+The SNP heritability is estimated using a two step procedure. First a genetic covariance matrix, or genetic relationship matrix (GRM) is estimated. This is an $n \times n$ matrix where each element represents the genetic similarity of two individuals. The second step performs REML analysis to essentially estimate how much of the phenotypic covariance in the population is attributable to genetic covariance. 
+
 
 ## A note about software
 
@@ -46,17 +50,19 @@ This will generate the files `~/pelotas_2015/gwas/data/phen.txt` and `~/pelotas_
         cd ~/pelotas_2015/whole_genome/scripts
         ./construct_grm.sh
 
-	If this is running slowly then you can use pre-computed GRMs then copy the pre-computed GRM files from the shared space:
+	If this is running slowly then you can use pre-computed GRMs. Copy `geno_qc.grm.bin`, `geno_qc.grm.id` and `geno_qc.grm.N` from shared space:
 
 	    cp /pelotas_data/whole_genome/geno_qc.grm* ~/pelotas_2015/whole_genome/data/
 
 
-2. 	Calculate SNP heritabilities with and without covariates. What are the SNP heritabilities for each of the traits and how do the estimates differ when covariates are not included? See `estimate_heritability.sh`
+2. 	Calculate SNP heritabilities with and without covariates. What are the SNP heritabilities for each of the traits and how do the estimates differ when covariates are not included? Use the commands in `estimate_heritability.sh` to do this.
 
 
-3. 	We have now calculated a genetic relationship value for every pair of individuals. If the sample comprises only 'unrelated' individuals then each pair of individuals should have a genetic relationship less than 0.05 (and a relationship with themselves of approximately 1). We can use the `analyse_grm.R` script to read in the GRM files into R and plot the distribution of relationships. Why is it important to make sure that related individuals are not included in this analysis?
+3. 	We have now calculated a genetic relationship value for every pair of individuals. If the sample comprises only 'unrelated' individuals then each pair of individuals should have a genetic relationship less than 0.05 (and a relationship with themselves of approximately 1). Use the `analyse_grm.R` script to read in the GRM files into R and plot the distribution of relationships. 
+
+Why is it important to make sure that related individuals are not included in this analysis?
 
 
-4. 	Perform bivariate analysis to calculate genetic correlations between each pair of traits. See `estimate_heritability.sh`.
+4. 	In addition to estimating the SNP heritability of each trait, we can calculate how similar the genetic effects or for a pair of traits, also known as the genetic correlation. Perform bivariate GREML analysis to calculate genetic correlations between each pair of traits. Use the commands in `estimate_heritability.sh` to do this.
 
-5. 	Construct two GRMs, one using chromosomes 1-8 and another using 9-22. Estimate the heritability of each GRM separately and both combined. Do this with and without covariates included. Is the sum of heritabilities for each chromosome the same as that for the entire genome? See `grm_partitioning.sh`.
+5. 	Construct two GRMs, one using chromosomes 1-8 and another using 9-22. Estimate the heritability of each GRM separately and both combined. Do this with and without covariates included. Is the sum of heritabilities for each chromosome the same as that for the entire genome? Use the commands in `grm_partitioning.sh` to do this.
