@@ -3,7 +3,7 @@ Genome wide association studies
 
 # Objectives
 
-1. Get familiar with the data and software
+1. Get familiar with the data, the software, and working in a Unix environment
 2. Perform quality control routines for genetic and phenotypic data
 3. Perform GWAS
 4. Interpret results
@@ -28,7 +28,7 @@ This folder has all the scripts you'll need for the GWAS practical. If the folde
 
 	git clone https://github.com/explodecomputer/pelotas_2015.git
 
-It will take a few moments to download. Navigate to the `gwas` folder:
+It will take a few moments to download. When it's finished navigate to the `gwas` folder:
 
 	cd pelotas_2015/gwas
 
@@ -44,23 +44,25 @@ Genome wide association studies aim to identify genetic variants that are associ
 - Epidemiological application in causal inference
 - Evolutionary understanding of genotype - phenotype relationships
 
-In this practical you will have a simple introduction on how to conduct GWAS. We begin with a slightly mundane but very important aspect, quality control, whose objective is ensuring only high quality data is being used to make any scientific inferences. 
+In this practical you will have a simple example of how to perform GWAS. We begin with a slightly mundane but very important aspect, quality control, whose objective is ensuring only high quality data is being used to make any scientific inferences. 
 
-Next we'll use PLINK software to perform the GWAS. This is a simple routine where the software performs a regression for every SNP in the data, testing association between the SNP and the trait. We'll perform the GWAS twice, once using the original raw and uncleaned data, and once using the cleaned data. This way we get to see what a good and a bad GWAS result looks like.
+Next we'll perform the GWAS. This is a simple routine where the PLINK software performs a regression for every SNP in the data, testing association between the SNP and the trait. We'll perform the GWAS twice, once using a fast and approximate method using the original raw and uncleaned data, and once using the cleaned data using proper linear or logistic regression. This way we get to see what a good and a bad GWAS result looks like.
 
 Finally we'll draw some graphs to visualise the results, identify significant associations and perform lookups with online tools to get more information about the SNPs and regions implicated by the GWAS.
 
 
 ## A note about Plink2
 
-Most of the data manipulation and some of the analysis will be run using [plink2](https://www.cog-genomics.org/plink2/). It is currently in beta (technically still `plink1.90`), but for most functions is stable and is extremely fast compared to the [original plink](http://pngu.mgh.harvard.edu/~purcell/plink/). It can be used for the vast majority of genetic analyses that are routinely performed, and the syntax is pretty simple and straightforward. Refer to the documentation to get more details about what it can do and how routines are implemented.
+Most of the data manipulation and some of the analysis will be run using [plink2](https://www.cog-genomics.org/plink2/). It is currently in beta (technically still `plink1.90`), but for most functions is stable and is extremely fast compared to the [original plink](http://pngu.mgh.harvard.edu/~purcell/plink/). It can be used for the vast majority of genetic analyses that are routinely performed, and the syntax is pretty simple and straightforward. 
+
+Refer to the documentation in the links above to get more details about what it can do and how routines are implemented.
 
 
 # Practical
 
 ## Cleaning genotype data
 
-The data is in 'binary plink' format data, which requires 3 files for each dataset. The `.fam` file has information about the individuals - family ID, individual ID, father, mother, sex, phenotype. Note that we can specify a different phenotype file to analyse a different phenotype so that we don't have to change the genotype data.
+The data is in 'binary plink' format data, which requires 3 files for each dataset. The `.fam` file has information about the individuals - family ID, individual ID, father, mother, sex, phenotype. Note that we can specify a different phenotype file to analyse a different phenotype so that we don't have to change the genotype data files.
 
 The `.bim` file has information about the SNPs in the data - chromosome, SNP name, genetic position, physical position, minor allele, major allele.
 
@@ -106,27 +108,35 @@ Use WinSCP to download these graphs to your local computer to view them. They ar
 - `../images/unclean_maf2.pdf`
 - `../images/unclean_hwe.png`
 
+**_Questions:_**
+
+> 1. What are reasonable exclusion thresholds for
+> 	- MAF?
+>	- HWE?
+>	- Genotype missingness?
+> 2. Can you explain why the allele frequency distribution is the way it is?
+
 
 ### Exercise 3
 
 Clean the genotype data. This means:
 
 - Remove SNPs in Hardy Weinberg Disequilibrium
-- Remove rare SNPs (MAF < 0.01)
+- Remove rare SNPs
 - Remove SNPs that have high rates of missing information
 
-We can do this using the `qc.sh` script. **NOTE:** This has already been run once you just need to understand what the script is doing
+We can do this using the `qc_geno.sh` script. **NOTE:** This has already been run once you just need to understand what the script is doing
 
-	less qc.sh
+	less qc_geno.sh
 
-The pre generated QC'd data is can be found at `/pelotas_data/geno_qc.*`.
+The pre-generated QC'd data can be found at `/pelotas_data/geno_qc.*`.
 
 
 ## Cleaning phenotype data
 
 ### Exercise 4
 
-Work through the commands in the R script called `qc.R` to visualise and clean the phenotype data.
+Work through the commands in the R script called `qc_phen.R` to visualise and clean the phenotype data.
 
 This file will generate some graphs, transform phenotypes and remove outliers, test for associations between traits and covariates, and save the cleaned phenotype data to a text file.
 
@@ -134,17 +144,13 @@ This file will generate some graphs, transform phenotypes and remove outliers, t
 
 > 1. For continuous traits are they normally distributed?
 > 2. Are there any outliers?
-> 3. Are there covariates?
-> 4. Are the covariates associated with the traits?
-> 5. How will each of these factors influence the performance of our GWAS?
+> 3. Are the covariates associated with the traits?
+> 4. How will each of these factors influence the performance of our GWAS?
 
 
 ## Performing GWAS
 
-We are going to compare the way GWAS results are influenced if we use:
-
-a. Uncleaned data and no covariates
-b. Cleaned data with covariates
+We are going to compare the way GWAS results are influenced if we use: **a.** uncleaned data and no covariates (approx model) and **b.** Cleaned data with covariates (full model).
 
 
 ### Exercise 5
@@ -157,21 +163,27 @@ Because **b.** is fitting a proper linear model for each SNP the routine can tak
 
 However, the results for **a.** can be generated quickly. Perform the GWAS using an approximate association test which runs very fast but doesn't fit covariates.
 
+	less run_gwas_fast.sh
 	./run_gwas_fast.sh
 
+Look at the `run_gwas_full.sh` script. What are the main syntax differences?
+
+	less run_gwas_full.sh
 
 ### Exercise 6
 
-We now have two GWAS results for each trait - let's compare them. To visualise the results we will generate Manhattan plots and Q-Q plots. Run the following script:
+We now have two GWAS results for each trait - let's compare them. To visualise the results we will generate Manhattan plots and Q-Q plots. Run the `gwas_graphs.sh` script to do this.
 
+	less gwas_graphs.sh
+	less gwas_graphs.R
 	./gwas_graphs.sh
 
 The Manhattan plots allow us to visualise if there are any genome-wide significant signals, and to get an idea of how well behaved the analysis has been. The Manhattan plots for BMI can be found here:
 
-- `../images/bmi.qassoc_manhattan.png`
-- `../images/bmi.assoc.linear.add_manhattan.png`
+- `../images/bmi_approx_manhattan.png`
+- `../images/bmi_full_manhattan.png`
 
-The first is for the fast analysis and the second is for the full analysis. The plots for the other traits are in the same directory. Use WinSCP to download them to your local computer to view them.
+The first is for the approx analysis and the second is for the full analysis. The plots for the other traits are in the same directory. Use WinSCP to download them to your local computer to view them.
 
 **_Questions:_**
 
@@ -185,8 +197,8 @@ The first is for the fast analysis and the second is for the full analysis. The 
 
 The Q-Q plots are in the same directory:
 
-- `../images/bmi.qassoc_qqplot.png`
-- `../images/bmi.assoc.linear.add_qqplot.png`
+- `../images/bmi_approx_qqplot.png`
+- `../images/bmi_full_qqplot.png`
 
 Use WinSCP to download them to your local computer to view them.
 
@@ -201,10 +213,13 @@ Use WinSCP to download them to your local computer to view them.
 
 ### Exercise 7
 
-There are hundreds of 'significant' SNPs, but only a few significantly associated regions in the genome. This is most likely due to a single **causal variant** with a large number of SNPs that have large test statistics simply because they are in linkage disequilibrium with the causal variant. It is convenient to identify the top SNP from each region in order to use in subsequent analysis such as functional annotation or Mendelian randomisation. We can use a process called 'clumping' to do this. This takes the top hit in the genome, and then removes all SNPs that are in LD with it (above a specified $r^2$ threshold and within a specified distance). It then does the same for the next top hit, and continues until there are no more significant hits apart from the iteratively selected significant independent SNPs.
+There are hundreds of 'significant' SNPs, but only a few significantly associated regions in the genome. This is most likely due to a single **causal variant** with a large number of SNPs that have large test statistics simply because they are in linkage disequilibrium with the causal variant. 
 
-We can clump our results using the following script:
+It is convenient to identify the top SNP from each region in order to use in subsequent analysis such as functional annotation or Mendelian randomisation. We can use a process called 'clumping' to do this. This takes the top hit in the genome, and then removes all SNPs that are in LD with it (above a specified $r^2$ threshold and within a specified distance). It then does the same for the next top hit, and continues until there are no more significant hits apart from the iteratively selected significant independent SNPs.
 
+We can clump our results using the `clump.sh` script/
+
+	less clump.sh
 	./clump.sh
 
 Look at the results in `../results/*.clumped`. How many significant independent SNPs are there? We can estimate the proportion of the phenotypic variance explained by that SNP using the following code in R (e.g. supposing our sample size is 8000 and the p-value is $1e^{-8}$:
@@ -225,6 +240,4 @@ Look at the results in `../results/*.clumped`. How many significant independent 
 
 2. We can see if there are genomic annotations in the same region as our hits. Navigate to the [http://www.broadinstitute.org/mammals/haploreg/haploreg_v3.php](Haploreg) website and enter the top few hits into the search box.
 
-3. Going deeper, we could test our results for pathway enrichment, e.g. using the [http://david.abcc.ncifcrf.gov/summary.jsp](DAVID functional annotation tool)
-
-4. What is the best way to verify whether these signals are real?
+3. What steps can we take to verify whether our GWAS signals are real?

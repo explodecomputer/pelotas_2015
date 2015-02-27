@@ -1,6 +1,13 @@
 #!/bin/bash
 
+# the ../ is a shortcut for specifying the directory above the current working directory
+# an alternative way of writing ../ would be to write the full path, in this instance:
+# ~/pelotas_2015/gwas/ is being substitute by ../
+
+# The data directory and the work directory are imported from the ../../config file using this line of code. They are stored in the variables ${datadir} and ${workdir}
+
 source ../../config
+
 
 # Perform GWAS on BMI, hypertension, CRP
 # This uses an approximation to linear regression to run much faster than a normal GWAS
@@ -10,29 +17,28 @@ source ../../config
 # BMI
 
 plink1.90 \
-	--bfile ${datadir}/geno_unclean \
-	--assoc \
-	--pheno ../data/phen.txt \
-	--mpheno 1 \
-	--out ${datadir}/results/bmi
+	--bfile ${datadir}/geno_unclean \  # The location of the genotype data
+	--assoc \                          # Run fast association
+	--pheno ../data/phen.txt \         # The location of the phenotype data
+	--mpheno 1 \                       # The column of the phenotype file to use as the phenotype
+	--out ${datadir}/results/bmi       # Where to store the results file
 
 
 # CRP
 
 plink1.90 \
-	--bfile ${datadir}/geno_unclean \
-	--assoc \
-	--pheno ../data/phen.txt \
-	--mpheno 2 \
+	--bfile ${datadir}/geno_unclean \  # The location of the genotype data
+	--assoc \                          # Run fast association
+	--pheno ../data/phen.txt \         # The location of the phenotype data
+	--mpheno 2 \                       # The column of the phenotype file to use as the phenotype
 	--out ${datadir}/results/crp
 
 
 # Hypertension
 
 plink1.90 \
-	--bfile ${datadir}/geno_unclean \
-	--assoc \
-	--pheno ../data/phen.txt \
-	--mpheno 3 \
+	--bfile ${datadir}/geno_unclean \  # The location of the genotype data
+	--assoc \                          # Run fast association
+	--pheno ../data/phen.txt \         # The location of the phenotype data
+	--mpheno 3 \                       # The column of the phenotype file to use as the phenotype
 	--out ${datadir}/results/hypertension
-

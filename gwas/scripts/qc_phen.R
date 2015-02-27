@@ -1,7 +1,11 @@
+# Load in the raw phenotype data.
+# This data might have outliers, non-normal distributions etc
+# We have to clean the data before running the GWAS
+
 load("../../data/phen/phen.RData")
 
 # These data have been simulated based on distributions estimated from a Danish general population study
-# For details of the simulation see simulation "construct_phen.R" script
+# For details of the simulation see simulation "../../data/scripts/construct_phen.R" script
 
 
 ####################
@@ -45,7 +49,7 @@ index <- phen$lbmi < (mean(phen$lbmi) - 4*sd(phen$lbmi)) | phen$lbmi > (mean(phe
 phen$lbmi[index] <- NA
 
 # How does the data look now?
-hist(phen$bmi, breaks=100)
+hist(phen$lbmi, breaks=100)
 
 # BMI is weight / height^2
 # If there is a systematic difference in height between males and females then BMI will have a systematic difference in variance between males and females
@@ -71,7 +75,7 @@ tapply(phen$bmi_adjusted, covars$sex, function(x) mean(x, na.rm=T))
 tapply(phen$bmi_adjusted, covars$sex, function(x) sd(x, na.rm=T))
 
 # Still looks normal
-hist(phen$bmi_adjusted)
+hist(phen$bmi_adjusted, breaks=100)
 qqnorm(phen$bmi_adjusted)
 
 # Scale the phenotype to have mean and sd prior to adjusting for sex
@@ -145,7 +149,14 @@ popstrat$ourdata <- FALSE
 popstrat$ourdata[popstrat$population=="Our data"] <- TRUE
 
 library(ggplot2)
+
+# This colours each population differently
 qplot(data=popstrat, x=PC1, y=PC2, geom="point", colour=ourdata)
+
+# This colours our data differently from all the other data
+qplot(data=popstrat, x=PC1, y=PC2, geom="point", colour=population)
+
+# This is the same as the previous graph but looking at PCs 3 and 4
 qplot(data=popstrat, x=PC3, y=PC4, geom="point", colour=ourdata)
 
 # It looks like all of our data cluster nicely within a single population
@@ -158,6 +169,6 @@ qplot(data=popstrat, x=PC3, y=PC4, geom="point", colour=ourdata)
 # Save adjusted phenotypes #
 ############################
 
-phen2 <- with(phen, data.frame(fid, iid, bmi_adjusted, lcrp, hypertension, sbp, dbp))
+phen2 <- with(phen, data.frame(fid, iid, bmi_adjusted, lcrp, hypertension))
 write.table(phen2, "../data/phen.txt", row=F, col=F, qu=F)
 write.table(covars, "../data/covs.txt", row=F, col=F, qu=F)
