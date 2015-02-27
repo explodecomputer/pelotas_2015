@@ -169,6 +169,10 @@ qplot(data=popstrat, x=PC3, y=PC4, geom="point", colour=ourdata)
 # Save adjusted phenotypes #
 ############################
 
+# Select only the variables we want to save
+# Family ID, Individual ID, BMI, CRP, Hypertension
 phen2 <- with(phen, data.frame(fid, iid, bmi_adjusted, lcrp, hypertension))
+
+# Write the phenotype and covariate data to text files so that they can be read by plink
 write.table(phen2, "../data/phen.txt", row=F, col=F, qu=F)
 write.table(covars, "../data/covs.txt", row=F, col=F, qu=F)

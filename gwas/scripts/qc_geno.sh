@@ -19,6 +19,15 @@ source ../../config
 # But think about what values should be used for each of the exclusion filters
 
 
+# --bfile      Location of genotype data
+# --maf        Exclude MAF < 0.01
+# --hwe        Exclude HWE with p < qe-6
+# --geno       Exclude SNP missingness > 5%
+# --mind       Exclude person missingness > 5%
+# --make-bed   Make new genotype data
+# --out        New genotype filename
+
+
 plink1.90 \
  	--bfile ${datadir}/geno_unclean \
  	--maf 0.01 \

@@ -14,31 +14,39 @@ source ../../config
 # The approximation does not allow covariates to be included in the GWAS!
 
 
+# --bfile     The location of the genotype data
+# --assoc     Run fast association
+# --pheno     The location of the phenotype data
+# --mpheno    The column of the phenotype file to use as the phenotype
+# --out       Where to store the results file
+
+
+
 # BMI
 
 plink1.90 \
-	--bfile ${datadir}/geno_unclean \  # The location of the genotype data
-	--assoc \                          # Run fast association
-	--pheno ../data/phen.txt \         # The location of the phenotype data
-	--mpheno 1 \                       # The column of the phenotype file to use as the phenotype
-	--out ${datadir}/results/bmi       # Where to store the results file
+	--bfile ${datadir}/geno_unclean \  
+	--assoc \                          
+	--pheno ../data/phen.txt \         
+	--mpheno 1 \                       
+	--out ${datadir}/results/bmi       
 
 
 # CRP
 
 plink1.90 \
-	--bfile ${datadir}/geno_unclean \  # The location of the genotype data
-	--assoc \                          # Run fast association
-	--pheno ../data/phen.txt \         # The location of the phenotype data
-	--mpheno 2 \                       # The column of the phenotype file to use as the phenotype
+	--bfile ${datadir}/geno_unclean \
+	--assoc \
+	--pheno ../data/phen.txt \
+	--mpheno 2 \
 	--out ${datadir}/results/crp
 
 
 # Hypertension
 
 plink1.90 \
-	--bfile ${datadir}/geno_unclean \  # The location of the genotype data
-	--assoc \                          # Run fast association
-	--pheno ../data/phen.txt \         # The location of the phenotype data
-	--mpheno 3 \                       # The column of the phenotype file to use as the phenotype
+	--bfile ${datadir}/geno_unclean \
+	--assoc \
+	--pheno ../data/phen.txt \
+	--mpheno 3 \
 	--out ${datadir}/results/hypertension
