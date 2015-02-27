@@ -7,7 +7,7 @@ The use of very simple, single SNP approaches have actually been very successful
 
 The purpose of GWAS is to identify particular SNPs that we are certain have an influence on a trait. In contrast, the purpose of a GCTA style 'GREML' (Genetic REML) or 'SNP heritability' analysis is to estimate how much of the variance of the phenotype can be explained by all the measured SNPs in our data.
 
-The SNP heritability is estimated using a two step procedure. First a genetic covariance matrix, or genetic relationship matrix (GRM) is estimated. This is an $n \times n$ matrix where each element represents the genetic similarity of two individuals. The second step performs REML analysis to essentially estimate how much of the phenotypic covariance in the population is attributable to genetic covariance. 
+The SNP heritability is estimated using a two step procedure. First a genetic covariance matrix, or genetic relationship matrix (GRM) is estimated. This is an *n* x *n* matrix where each element represents the genetic similarity of two individuals. The second step performs REML analysis to essentially estimate how much of the phenotypic covariance in the population is attributable to genetic covariance. 
 
 
 ## A note about software
@@ -19,7 +19,7 @@ The original implementation for large scale human data is [GCTA](http://www.comp
 
 How far removed must two individuals be from one another before they are considered 'unrelated'? We can make estimates of the proportion of the genome that is shared identical by descent (IBD) between all pairs of seemingly unrelated individuals from the population by calculating the proportion of SNPs that are identical by state (IBS). 
 
-The result is a genetic relationship matrix (GRM, aka kinship matrix) of size `n x n`, diagonals are estimates of an individual's inbreeding and off-diagonals are an estimate of genomic similarity for pairs of individuals.
+The result is a genetic relationship matrix (GRM, aka kinship matrix) of size *n* x *n*, diagonals are estimates of an individual's inbreeding and off-diagonals are an estimate of genomic similarity for pairs of individuals.
 
 
 ## Using kinships to estimate heritability
@@ -60,9 +60,9 @@ This will generate the files `~/pelotas_2015/gwas/data/phen.txt` and `~/pelotas_
 
 3. 	We have now calculated a genetic relationship value for every pair of individuals. If the sample comprises only 'unrelated' individuals then each pair of individuals should have a genetic relationship less than 0.05 (and a relationship with themselves of approximately 1). Use the `analyse_grm.R` script to read in the GRM files into R and plot the distribution of relationships. 
 
-Why is it important to make sure that related individuals are not included in this analysis?
+	Why is it important to make sure that related individuals are not included in this analysis?
 
 
-4. 	In addition to estimating the SNP heritability of each trait, we can calculate how similar the genetic effects or for a pair of traits, also known as the genetic correlation. Perform bivariate GREML analysis to calculate genetic correlations between each pair of traits. Use the commands in `estimate_heritability.sh` to do this.
+4. 	In addition to estimating the SNP heritability of each trait, we can calculate how similar the genetic effects are for a pair of traits, also known as the genetic correlation. Perform bivariate GREML analysis to calculate genetic correlations between each pair of traits. Use the commands in `estimate_heritability.sh` to do this.
 
 5. 	Construct two GRMs, one using chromosomes 1-8 and another using 9-22. Estimate the heritability of each GRM separately and both combined. Do this with and without covariates included. Is the sum of heritabilities for each chromosome the same as that for the entire genome? Use the commands in `grm_partitioning.sh` to do this.

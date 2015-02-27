@@ -15,16 +15,16 @@ Here you'll find information about all the above objectives and some questions a
 
 > **please read through the scripts** 
 
-so that you understand what is being done and how it is being implemented.
+so that you understand what is being done and how it is being implemented. In the instructions below the commands that you need to run in putty are in grey boxes like this. 
 
 
 ## Setup
 
-After you have logged into the server you should find a folder called `pelotas_2015` in your home directory:
+After you have logged into the server you should find a folder called `pelotas_2015`. This folder has all the scripts you'll need for the GWAS practical. In your home directory run the following command to see if it is there:
 
 	ls -l
 
-This folder has all the scripts you'll need for the GWAS practical. If the folder is not there you can download it with the following command:
+If the folder is not there you can download it with the following command:
 
 	git clone https://github.com/explodecomputer/pelotas_2015.git
 
@@ -215,14 +215,14 @@ Use WinSCP to download them to your local computer to view them.
 
 There are hundreds of 'significant' SNPs, but only a few significantly associated regions in the genome. This is most likely due to a single **causal variant** with a large number of SNPs that have large test statistics simply because they are in linkage disequilibrium with the causal variant. 
 
-It is convenient to identify the top SNP from each region in order to use in subsequent analysis such as functional annotation or Mendelian randomisation. We can use a process called 'clumping' to do this. This takes the top hit in the genome, and then removes all SNPs that are in LD with it (above a specified $r^2$ threshold and within a specified distance). It then does the same for the next top hit, and continues until there are no more significant hits apart from the iteratively selected significant independent SNPs.
+It is convenient to identify the top SNP from each region in order to use in subsequent analysis such as functional annotation or Mendelian randomisation. We can use a process called 'clumping' to do this. This takes the top hit in the genome, and then removes all SNPs that are in LD with it (above a specified r<sup>2</sup> threshold and within a specified distance). It then does the same for the next top hit, and continues until there are no more significant hits apart from the iteratively selected significant independent SNPs.
 
 We can clump our results using the `clump.sh` script/
 
 	less clump.sh
 	./clump.sh
 
-Look at the results in `../results/*.clumped`. How many significant independent SNPs are there? We can estimate the proportion of the phenotypic variance explained by that SNP using the following code in R (e.g. supposing our sample size is 8000 and the p-value is $1e^{-8}$:
+Look at the results in `../results/*.clumped`. How many significant independent SNPs are there? We can estimate the proportion of the phenotypic variance explained by that SNP using the following code in R (e.g. supposing our sample size is 8000 and the p-value is 1e<sup>-8</sup>:
 
 	p <- 1e-8
 	n <- 8000
@@ -231,7 +231,7 @@ Look at the results in `../results/*.clumped`. How many significant independent 
 
 **_Questions:_**
 > 1. How much variance has been explained by our significantly detected SNPs?
-> 2. What does this tell us about the genetic architecture of our phenotype?
+> 2. What does this tell us about the genetic architecture of our phenotype? (e.g. how many SNPs are likely to influence the trait?)
 
 
 # Bioinformatics session

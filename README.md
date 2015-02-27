@@ -4,9 +4,7 @@ Data and scripts for practicals
 This repository contains instructions, bits of data, and scripts for each of the practicals:
 
 - Genome wide association studies (`gwas`)
-- Imputation (`imputation`)
 - Whole genome methods (`whole_genome`)
-- Mendelian randomisation (`mr`)
 
 The guide to each of the practicals are in the README files in each of the respective directories. Slides and references for the course can be downloaded from [here]().
 
@@ -14,11 +12,16 @@ To get set up, first thing to do is clone it into your home directory. Log on to
 
     git clone https://github.com/explodecomputer/pelotas_2015.git
 
-It will download all the files in this repo, about 20Mb in total. The next thing to do is copy the necessary executables into your home directory so that it is visible on your path:
+It will download all the files in this repo.
 
-    cp -r pelotas_2015/bin ~/
+There is a file in `pelotas_2015/` called `config`. You will notice that most of the scripts `source` this file at the beginning. This is so that we can set the data directory and the work directory in one place and all the scripts will import those variables in order to find where the data is located. By having the scripts setup in this way it makes it easy to use the scripts on other computers with different locations by just changing the variables in one script instead of changing every single analysis script.
 
-There is a file in `pelotas_2015/` called `config`. This is to point to the directory containing the genotype data (currently `/pelotas_data/`). In the data directory there are also pre-computed results for some of the more computationally demanding routines, so if they are running slowly during the practical then no problem just pick up the results from here.
+For these practicals the data directory will be `/pelotas_data` and the work directory will be `~/pelotas_2015`. If the `config` file doesn't have these lines already, go ahead and add them yourself:
+
+	workdir="${HOME}/repo/pelotas_2015"
+	datadir="/panfs/panasas01/shared/alspac/pelotas_teaching_material/data/genotyped"
+
+In the data directory there are also pre-computed results for some of the more computationally demanding routines, so if they are running slowly during the practical then no problem just pick up the results from here.
 
 The folder `pelotas_2015/data` has the scripts that were used to simulate the phenotype data, take a look if you are interested.
 
