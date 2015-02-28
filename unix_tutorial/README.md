@@ -12,6 +12,8 @@ Here is a diagram:
 
 ![ssh](http://www.ibm.com/developerworks/aix/library/au-sshsecurity/SSH_Protocol1.gif)
 
+The objective of this tutorial is to give you a fast introduction to connecting to a remote Linux computer, finding your way around using the command line interface, manipulating files and writing scripts.
+
 
 ## Getting connected
 
@@ -79,13 +81,13 @@ If you now click on "Session" again you can enter a name in the "Saved sessions"
 
 ## Directory structure and navigation
 
-The files and folders on Linux are organised in the same way as they are in Windows - in a heirarchical structure. At the very top of the structure is the **root** directory which is denoted by a single slash `/`. Everything else is a sub-directory (or sub-sub-directory or sub-sub-sub-directory etc) of the root directory. The Unix "root" directory is a bit like the "My Computer" folder in Windows.
+The files and folders on Linux are organised in the same way as they are in Windows - in a heirarchical structure. At the very top of the structure is the **root** directory which is denoted by a single slash `/`. Everything else is a sub-directory (or sub-sub-directory or sub-sub-sub-directory etc) of the root directory. Unlike DOS or Windows filesystems that have multiple “roots”, one for each disk drive, the Linux filesystem mounts all disks somewhere underneath the `/` filesystem.
 
-As a user you have a home directory, *e.g.* the directory for user **pelotas1** is located at `/home/pelotas1`. Now that you have loogged in you can see the "path" to your home directory:
+As a user you have a home directory, *e.g.* the directory for user **pelotas1** is located at `/home/pelotas1`. Now that you have logged in you can see the "path" to your home directory:
 
 	pwd
 
-This command tells you your present working directory, or where you are in the file system heirarchy at this moment.
+This command tells you your present working directory, or where you are in the file system heirarchy at this moment. By default when you log into the remote computer you are taken to your home directory.
 
 We can see what files are in this directory using the `ls` command:
 
@@ -102,27 +104,117 @@ To navigate to a different directory we use the `cd` command. Let's navigate int
 	cd pelotas_2015
 	ls -l
 
+A shortcut for specifying the home directory is to use the `~` sign. This means that for example if user **pelotas1** wants to go to their home directory they could type either the full path:
+
+	cd /home/pelotas1
+
+or use the shortcut:
+
+	cd ~
+
+Let's look at another directory, this is where the data will be for some of the tutorials:
+
+	cd /pelotas_data
+	ls -l
+
+In order to navigate back to the directory that we were last in we can use another shortcut:
+
+	cd -
+
+And if we want to travel to the directory one level up in the heirarchy we can use this shortcut:
+
+	cd ../
 
 
-The command line always  We can move from one folder to another using the `cd` command. For example, to 
+## Viewing, editing, copying, renaming, moving and making files
+
+There are a few ways to view a file, for example let's look at the source code that was used to make this README file:
+
+	cd ~/pelotas_2015/unix_tutorial
+	less README.md
+
+The `less` programme is simply used for viewing files, it cannot be used for editing. An example of opening a file in `less` is that even if it is a huge file it won't take a long time to load up, it just loads a small section at a time. Once you are in the `less` programme you can scroll through the file by using the up and down arrows, and you can page down and page up using the `f` and `b` keys. To exit the `less` programme and return to the command line simply press `q`.
+
+We can create a new file using the `touch` command. Make a new file called "hello" like this:
+
+	touch hello
+	ls -l
+
+We can see this created a new file called `hello` which is 0 bytes. There are many text editors that are commonly used in Linux. A simple one is `nano`. To edit `hello` the following command will open the file in a text editor:
+
+	nano hello
+
+We can use the arrow keys to move around and we can type here as normal. Type in some text and then save and exit. To do this press `ctrl` + `x` and then type `y` to save the changes. We can see the new changes in the file by viewing it again:
+
+	less hello
+
+And we can also see that it is no longer 0 bytes in size:
+
+	ls -l
+
+We can make a copy of the file using the `cp` command. This takes two or more arguments, the first is (are) the name(s) of the file(s) that you want to copy, the last is the location that you want to copy it (them) to. For example to copy `hello` to a new file called `hello_copy` we run:
+
+	cp hello hello_copy
+
+It's also possible to copy multiple files to a new directory, for example to copy `hello` and `hello_copy` to the `data/` directory we would write:
+
+	cp hello hello_copy data/
+	ls -l data/
+
+An alternative way to specify multiple files is to use the wildcard character `*`:
+
+	cp hello* data/
+
+This will copy all files that start with "hello" to the `data/` directory, i.e. this includes `hello` and `hello_copy`.
+
+**Note:** It's really easy to overwrite a file in Linux! This is an irreversible action so be careful when you are executing commands.
+
+It's possible to move a file rather than copy it using the `mv` command. For example to rename a file we could use the `mv` command:
+
+	mv `hello` `hello_renamed`
+	ls -l
+
+The `hello` file is gone and it has been replaced by the `hello_renamed` file. Or we could simply move the file to a new location, e.g.
+
+	mv hello_renamed data/
+	ls -l
+	ls -l data/
+
+The `hello_renamed` file has now been moved to the `data/` directory. Finally, we can delete files using the `rm` command. 
+
+**Task:** Using the wildcard delete all the files that begin with `hello` in the `~/pelotas_2015/unix_tutorial/` and the `~/pelotas_2015/unix_tutorial/data/` directories. This is easily done with two commands, can you do it in a single command?
 
 
-When the user **pelotas1** logs into the server they are automatically taken to their home directory
+
+## Data manipulation and using pipes
+
+The Unix command line has a lot of built in utilities that make it very convenient and fast to manipulate data. For example, the `cut`, `grep`, `sed`, `awk`, `paste`, `cat`, `head`, `tail`, (and many more) commands can all be used to perform specific actions to manipulate data. To see the instruction manual on a particular command you can use the `man` command, for example, find out what the `head` command does and what its options are:
+
+	man head
+
+You will notice it opens up a text file in the `less` programme, you can exit by pressing `q`.
+
+Let's manipulate some data. Navigate to the `~/pelotas_2015/unix_tutorial/data/` directory and you will find a file called `snpdata.txt`
+
+	cd ~/pelotas_2015/unix_tutorial/data/
+	ls -l
+
+Print the first 20 lines to the screen:
+
+	head -n 20 snpdata.txt
+
+This file contains information about some (fictitious) SNPs. The first column is the chromosome, the second column is the SNP name, the third column is the SNP's position on the chromosome.
+
+One way to extract a particular column is to use `awk`. For example, to extract the SNP names only from the file we can tell `awk` to only print the second column:
+
+	awk '{ print $2 }' snpdata.txt
 
 
-3. directory navigation
-
-The Linux filesystem is a tree-like hierarchy hierarchy of directories and files. At the base of the filesystem is the “/” directory, otherwise known as the “root” (not to be confused with the root user). Unlike DOS or Windows filesystems that have multiple “roots”, one for each disk drive, the
-Linux filesystem mounts all disks somewhere underneath the / filesystem. The following table
-describes many of the most common Linux directories.
 
 
-- viewing and editing files
-- run scripts (cancelling something)
-- running R
-- data manipulation
 - piping
 - using scripts
+- running R
 
 
 
