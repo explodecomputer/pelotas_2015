@@ -42,7 +42,7 @@ SFTP client | A programme that is used for transferring files to and from a loca
 
 ## Getting connected
 
-A lot of servers use Linux and we need to use a server to run a few specific programmes so let's get familiar with Linux.
+A lot of servers use Linux because it is fast and stable, and we need to use a server to run a few specific programmes so let's get familiar with Linux.
 
 First of all, to connect to the server we will use a SSH connection. The idea is that we log in to the *remote* server from our *local* computer, so when we are running anything on the server we are using its hardware and infrastructure and our local computer is being used to simply view what is happening remotely and to input commands. 
 
