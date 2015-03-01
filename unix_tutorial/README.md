@@ -286,11 +286,11 @@ In addition to those commands the script has a number of lines that begin with t
 
 To run the script the first thing we need to do is to make sure that it is executable, which involves changing its permissions. Do this by running the command
 
-	chmod 755 extract.sh
+	chmod 755 extract17.sh
 
 Now we can execute the script as follows:
 
-	./extract.sh
+	./extract17.sh
 
 If we take a look in the data directory we will see that the new output has been generated:
 
@@ -300,8 +300,36 @@ If we take a look in the data directory we will see that the new output has been
 
 ### Variables
 
+Sometimes it's useful to store values in variables. Variables are essentially a way to substitute in a particular value into multiple locations in a script. This can be useful for lots of reasons, for example it means if that value changes at some point then all you need to do is change the variable delcaration once and the new substituted value will be used throughout the script.
 
+For example take a look at the `extract17_variables.sh` script:
 
+	less extract17_variables.sh
+
+It has the following commands:
+
+	chromosome="17"
+	number_of_rows="5"
+	grep "^${chromosome} " snpdata.txt | head -n ${number_of_rows} | cut -d " " -f 2 > extract${chromosome}_from_script_variable.txt
+
+The first line declares a new variable, storing the value "17" to the variable "chromosome". The second line assigns the value "5" to the variable "number\_of\_rows". The third command shows how the variables that we have just declared are used to substitute in the values that we want into the script.
+
+So to recap. To declare a variable:
+
+	variablename="value"
+
+To call the variable:
+
+	${variablename}
+
+Make the `extract17_variables.sh` script executable and run:
+
+	chmod 755 extract17_variables.sh
+	./extract17_variables.sh
+
+And find the new file in `../data/`.
+
+Finally
 
 
 
