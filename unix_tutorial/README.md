@@ -36,7 +36,7 @@ SFTP client | A programme that is used for transferring files to and from a loca
 ## Further reading
 
 - This is a great introductory tutorial: [linuxcommand.org](http://linuxcommand.org/)
-- Great forum for questions and answers: [stackoverflow.com](http://www.stackoverflow.com)
+- Very active forum for questions and answers: [stackoverflow.com](http://www.stackoverflow.com)
 - Just google what you need to know, vast amounts of information on all things to do with linux and scripting on the internet
 
 
