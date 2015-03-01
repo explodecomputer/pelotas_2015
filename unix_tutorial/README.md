@@ -1,6 +1,10 @@
-Linux in an hour
-================
-### Gibran Hemani, MRC Integrative Epidemiology Unit, University of Bristol, UK
+---
+title: "Linux in an hour"
+author: "Gibran Hemani"
+date: "MRC Integrative Epidemiology Unit, University of Bristol, UK"
+output: rmarkdown::tufte_handout
+---
+
 
 ## Objectives
 
@@ -99,7 +103,7 @@ The files and folders on Linux are organised in the same way as they are in Wind
 
 As a user you have a home directory, *e.g.* the directory for user **pelotas1** is located at `/home/pelotas1`. Now that you have logged in you can see the "path" to your home directory:
 
-	pwd
+  pwd
 
 This command tells you your present working directory, or where you are in the file system heirarchy at this moment. By default when you log into the remote computer you are taken to your home directory.
 
