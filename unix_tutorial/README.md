@@ -1,9 +1,8 @@
----
-title: "Linux in an hour"
-author: "Gibran Hemani"
-date: "MRC Integrative Epidemiology Unit, University of Bristol, UK"
-output: rmarkdown::tufte_handout
----
+Linux in an hour
+================
+
+*Gibran Hemani*
+*MRC Integrative Epidemiology Unit, University of Bristol, UK*
 
 
 ## Objectives
