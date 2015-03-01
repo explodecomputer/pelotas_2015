@@ -44,7 +44,7 @@ First of all, to connect to the server we will use a SSH connection. The idea is
 
 Here is a diagram:
 
-![ssh](http://www.ibm.com/developerworks/aix/library/au-sshsecurity/SSH_Protocol1.gif)
+![ssh](images/SSH_Protocol1.gif)
 
 The objective of this tutorial is to give you a fast introduction to connecting to a remote Linux computer, finding your way around using the command line interface, manipulating files and writing scripts.
 
