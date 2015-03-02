@@ -93,7 +93,15 @@ Click "Browse" and find the `pelotas.ppk` private key on the USB stick again.
 
 ![Find the Private key](images/Untitled4.png)
 
-If you now click on "Session" again you can enter a name in the "Saved sessions" box and click "Save". This will make Putty remember your settings for next time. Now click "Open" and a black screen will appear. Type in your username when it prompts you and we should be granted access. You now have a command line interface into the remote server. Whatever you type in this window will be executed on the remote server. 
+If you now click on "Session" again you can enter a name in the "Saved sessions" box and click "Save". This will make Putty remember your settings for next time. Now click "Open" and a black screen will appear. 
+
+![Find the Private key](images/login0.png)
+
+Type in your username when it prompts you and we should be granted access. You now have a command line interface into the remote server. 
+
+![Find the Private key](images/login1.png)
+
+Whatever you type in this window will be executed on the remote server. 
 
 
 
