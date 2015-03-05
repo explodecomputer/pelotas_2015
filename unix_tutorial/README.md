@@ -1,7 +1,7 @@
 Linux in an hour
 ================
 
-*Gibran Hemani*   
+*Gibran Hemani and Matthew Suderman*   
 *MRC Integrative Epidemiology Unit, University of Bristol, UK*
 
 * * *
