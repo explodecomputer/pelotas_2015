@@ -18,20 +18,19 @@ Linux in an hour
 
 Term | Explanation
 ---- | -----------
-[Unix](http://en.wikipedia.org/wiki/Unix) | An operating system like Windows but better
-[Linux](http://www.ubuntu.com/) | An operating system based on Unix
-[Command line](http://en.wikipedia.org/wiki/Command-line_interface) | The means of interacting with a computer program where the user issues commands to the program in the form of successive lines of text
-[Local computer](http://en.wikipedia.org/wiki/Remote_computer) | The computer that you are using directly
-[Remote computer](http://en.wikipedia.org/wiki/Remote_computer) | The computer you are interfacing with through a network connection. Also known as "Remote Server" or the "Host"
-[SSH](http://en.wikipedia.org/wiki/Secure_Shell) | Secure shell - an encrypted method of connecting to a remote computer
-[Putty](http://www.putty.org/) | A programme that is used to connect from a local Windows computer to a remote Unix computer
-SFTP client | A programme that is used for transferring files to and from a local Windows computer and a remote computer
-[WinSCP](http://winscp.net/) | An example of an SFTP client
-[Public / private key pair](http://security.stackexchange.com/questions/25741/how-can-i-explain-the-concept-of-public-and-private-keys-without-technical-jargo) | A pair of files that are used to authenticate a user and can be used to connect to a server instead of having to type in a password
-[Script](http://linuxcommand.org/lc3_writing_shell_scripts.php) | A list of commands that can be executed without user interaction
-[Variable](http://en.wikipedia.org/wiki/Variable_%28computer_science%29) | A symbolic name for some specified value that can be used to substitute the value into commands throughout the script
-[File path](http://en.wikipedia.org/wiki/Path_%28computing%29) | The location of a file in the computer's directory structure
-
+[Unix](http://en.wikipedia.org/wiki/Unix) | An operating system like Windows but better.
+[Linux](http://www.ubuntu.com/) | An operating system based on Unix.
+[Command line](http://en.wikipedia.org/wiki/Command-line_interface) | The means of interacting with a computer program where the user issues commands to the program in the form of successive lines of text.
+[Local computer](http://en.wikipedia.org/wiki/Remote_computer) | The computer that you are using directly.
+[Remote computer](http://en.wikipedia.org/wiki/Remote_computer) | The computer you are interfacing with through a network connection. Also known as "Remote Server" or the "Host".
+[SSH](http://en.wikipedia.org/wiki/Secure_Shell) | Secure shell - a program for connecting to a remote computer that enrypts everything sent between computers.
+[Putty](http://www.putty.org/) | A program that is used to connect from a local Windows computer to a remote Unix computer.
+SFTP client | A program that is used for transferring files to and from a local Windows computer and a remote computer.
+[WinSCP](http://winscp.net/) | An example of an SFTP client.
+[Public / private key pair](http://security.stackexchange.com/questions/25741/how-can-i-explain-the-concept-of-public-and-private-keys-without-technical-jargo) | A pair of files that are used to authenticate a user and can be used to connect to a server instead of having to type in a password.  One file is made public and is used to encrypt a message.  Once enrypted, a message cannot be read without the private key file to decrypt the message.
+[Script](http://linuxcommand.org/lc3_writing_shell_scripts.php) | A list of commands in a file that can be executed without user interaction.
+[Variable](http://en.wikipedia.org/wiki/Variable_%28computer_science%29) | A name and a memory location in the computer storing a value such as a number or sequence of characters. When a script with a variable is executed, the variable name is replaced with the value stored at the memory location. It is called a 'variable' because it is possible to make the script change the stored value as the script is executed. For example, a script that reads a file line by line could have a variable that stores the current line number being read.
+[File path](http://en.wikipedia.org/wiki/Path_%28computing%29) | The location of a file on a computer. Files on computer are organized in a tree-like structure.  The 'file path' provides the path from the root of the tree to the position of the file in the tree.
 
 ## Further reading
 
@@ -42,22 +41,22 @@ SFTP client | A programme that is used for transferring files to and from a loca
 
 ## Getting connected
 
-A lot of servers use Linux because it is fast and stable, and we need to use a server to run a few specific programmes so let's get familiar with Linux.
+A lot of servers use Linux because it is fast and stable, and we need to use a server to run a few specific programs so let's get familiar with Linux.
 
-First of all, to connect to the server we will use a SSH connection. The idea is that we log in to the *remote* server from our *local* computer, so when we are running anything on the server we are using its hardware and infrastructure and our local computer is being used to simply view what is happening remotely and to input commands. 
+First of all, to connect to the server we will use a *secure shell (SSH)* connection. The idea is that we connect to the *remote* server from our *local* computer and execute commands on the remote server and see the results on our local computer.
 
 Here is a diagram:
 
 ![ssh](images/SSH_Protocol1.gif)
 
-The objective of this tutorial is to give you a fast introduction to connecting to a remote Linux computer, finding your way around using the command line interface, manipulating files and writing scripts.
+The objective of this tutorial is to give you a quick introduction to connecting to a remote Linux server, finding your way around using the command line interface, manipulating files on the remote server and writing scripts to be executed on the remote server.
 
-We will use a programme called [Putty](http://www.putty.org/) to allow us to interact with the remote server, and a programme called [WinSCP](http://winscp.net/) to transfer files between our local computer and the remote server.
+We will use a program called [Putty](http://www.putty.org/) to allow us to connect and interact with the remote server and a program called [WinSCP](http://winscp.net/) to transfer files between our local computer and the remote server.
 
 
 ### Transferring files
 
-We can transfer files between the local and remote computers by using an "SFTP client" (e.g. [WinSCP](http://winscp.net/)). Open up WinSCP and then type in the IP address and username:
+We can transfer files between the local and remote computers by using an *SFTP client* (e.g. [WinSCP](http://winscp.net/)). Open up WinSCP and then type in the IP address and username:
 
 ![Remote server details](images/ip2.png)
 
