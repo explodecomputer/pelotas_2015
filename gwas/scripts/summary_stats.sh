@@ -8,13 +8,21 @@
 
 source ../../config
 
+# Options:
+# --bfile    Location of genotype file
+# --freq     Estimate allele frequencies
+# --missing  Missingness for each SNP and person
+# --hardy    Estimate HWE departure
+# --out      Where to save the results
+
+
 # Get summary statistics on original data
 plink1.90 \
-	--bfile ${datadir}/geno_unclean \  # Location of genotype file
-	--freq \                           # Estimate allele frequencies
-	--missing \                        # Missingness for each SNP and person
-	--hardy \                          # Estimate HWE departure
-	--out ../results/geno_unclean      # Where to save the results
+	--bfile ${datadir}/geno_unclean \
+	--freq \
+	--missing \
+	--hardy \
+	--out ../results/geno_unclean      
 
 
 # This will run an R script that will generate some graphs that summarise the HWE and frequencies

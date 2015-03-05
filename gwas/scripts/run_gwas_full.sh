@@ -21,12 +21,12 @@ source ../../config
 # BMI
 
 plink1.90 \
-	--bfile ${datadir}/geno_qc \   
-	--linear \                     
-	--covar ../data/covs.txt \     
-	--pheno ../data/phen.txt \     
-	--mpheno 1 \                   
-	--out ${datadir}/results/bmi   
+	--bfile ${datadir}/geno_qc \
+	--linear \
+	--covar ../data/covs.txt \
+	--pheno ../data/phen.txt \
+	--mpheno 1 \
+	--out ../results/bmi   
 
 # The output has a row for each SNP's additive effect
 # but also the effects of all covariates on all SNPs.
@@ -34,7 +34,7 @@ plink1.90 \
 # this code can be used to extract the first row 
 # and all subsequent rows that have "ADD" in them
 
-awk 'NR==1 || /ADD/' ${datadir}/results/bmi.assoc.linear > ${datadir}/results/bmi.assoc.linear.add
+awk 'NR==1 || /ADD/' ../results/bmi.assoc.linear > ../results/bmi.assoc.linear.add
 
 
 # CRP
@@ -45,9 +45,9 @@ plink1.90 \
 	--covar ../data/covs.txt \
 	--pheno ../data/phen.txt \
 	--mpheno 2 \
-	--out ${datadir}/results/crp
+	--out ../results/crp
 
-awk 'NR==1 || /ADD/' ${datadir}/results/crp.assoc.linear > ${datadir}/results/crp.assoc.linear.add
+awk 'NR==1 || /ADD/' ../results/crp.assoc.linear > ../results/crp.assoc.linear.add
 
 # Hypertension
 
@@ -57,6 +57,6 @@ plink1.90 \
 	--covar ../data/covs.txt \
 	--pheno ../data/phen.txt \
 	--mpheno 3 \
-	--out ${datadir}/results/hypertension
+	--out ../results/hypertension
 
-awk 'NR==1 || /ADD/' ${datadir}/results/hypertension.assoc.logistic | grep -v "NA" | less > ${datadir}/results/hypertension.assoc.logistic.add
+awk 'NR==1 || /ADD/' ../results/hypertension.assoc.logistic | grep -v "NA" | less > ../results/hypertension.assoc.logistic.add
