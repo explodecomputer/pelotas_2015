@@ -59,7 +59,7 @@ We will use a programme called [Putty](http://www.putty.org/) to allow us to int
 
 We can transfer files between the local and remote computers by using an "SFTP client" (e.g. [WinSCP](http://winscp.net/)). Open up WinSCP and then type in the IP address and username:
 
-![Remote server details](images/Untitled5.png)
+![Remote server details](images/ip2.png)
 
 Next click on "Advanced" then the "Authentication" tab on the left hand side of the new window:
 
@@ -83,7 +83,7 @@ Notice that the directory structure on the remote Linux computer can be navigate
 
 We will use "Putty" to open up a command line interface to the remote server so that we can issue commands and interact etc. To connect we need to tell "Putty" the remote server's address and our security credentials. Open up "Putty" and type in the IP address:
 
-![Remote server details](images/Untitled.png)
+![Remote server details](images/ip1.png)
 
 Next click on "SSH" on the left panel and then "Auth":
 
