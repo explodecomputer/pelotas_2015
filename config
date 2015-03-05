@@ -1,4 +1,4 @@
 #!/bin/bash
 
-workdir="${HOME}/repo/pelotas_2015"
-datadir="/panfs/panasas01/shared/alspac/pelotas_teaching_material/data/genotyped"
+workdir="${HOME}/pelotas_2015"
+datadir="/pelotas_data"
