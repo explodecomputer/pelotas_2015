@@ -6,6 +6,9 @@ Linux in an hour
 
 * * *
 
+
+# Introduction
+
 ## Objectives
 
 - Learn how to connect to a remote linux computer
@@ -55,57 +58,42 @@ The objective of this tutorial is to give you a quick introduction to connecting
 
 We will use a program called [Putty](http://www.putty.org/) to allow us to connect and interact with the remote server and a program called [WinSCP](http://winscp.net/) to transfer files between our local computer and the remote server.
 
+* * *
+
+# Practical
 
 ### Transferring files
 
-We can transfer files between the local and remote computers by using an *SFTP client* (e.g. [WinSCP](http://winscp.net/)). Open up WinSCP and then type in the IP address and username:
+We can transfer files between the local and remote computers by using an *SFTP client* (e.g. [WinSCP](http://winscp.net/) for Windows or [CyberDuck](https://cyberduck.io/?l=en) for Mac). Here is how it works for WinSCP. Open WinSCP and then type in the IP address and username:
 
 > IP address: **54.94.200.249**    
 > Username: **pelotas[x]** e.g. pelotas25 or pelotas13
 
+We'll tell you the password in the practical. Fill that box in too.
 
 ![Remote server details](images/ip2.png)
-
-Next click on "Advanced" then the "Authentication" tab on the left hand side of the new window:
-
-![Authentication](images/Untitled6.png)
-
-Click the "..." button to load a private key. Your private key is called `pelotas.ppk` and you should be able to find it on your USB stick.
-
-![Find the Private key](images/Untitled7.png)
 
 Success! You should see a new screen open up that looks like this:
 
 ![You have logged in](images/Untitled8.png)
 
-The left hand side is where you can view the files on the local computer, the right hand side is the remote computer. You can copy files to and from local and remote by clicking and dragging.
+The left hand side is where you can view the files on the local computer, the right hand side is the remote computer that we've just connected to. You can copy files to and from local and remote computers by clicking and dragging the files from one panel to the other.
 
 Notice that the directory structure on the remote Linux computer can be navigated in exactly the same way as one would do on a Windows computer. In other words, the files are organized using a tree-like structure.  Consequently, clicking on a directory name displays the list of the files and directories within that directory. This is like moving away from the tree root from a main branch onto a smaller branch. Clicking the directory named ".." takes you back to the previous directory, closer to the root.
 
 ### Logging into the server 
 
-We will use "Putty" to open up a command line interface to the remote server so that we can interact with the remote computer by issuing commands and viewing results. To connect we need to tell "Putty" the remote server's address and our security credentials. Open up "Putty" and type in the IP address:
+In Windows we will use "Putty" to open up a command line interface to the remote server so that we can interact with the remote computer by issuing commands and viewing results. To connect we need to tell "Putty" the remote server's address and our security credentials. Open up "Putty" and type in the IP address:
 
 ![Remote server details](images/ip1.png)
 
-Next click on "SSH" on the left panel and then "Auth":
-
-![Authentication](images/Untitled2.png)
-
-Click "Browse" and find the `pelotas.ppk` private key on the USB stick again.
-
-![Find the Private key](images/Untitled4.png)
-
 If you now click on "Session" again you can enter a name in the "Saved sessions" box and click "Save". This will make Putty remember your settings for next time. Now click "Open" and a black screen will appear. 
 
-![Find the Private key](images/login0.png)
+Type in your username and password when it prompts you and we should be granted access. You now have a command line interface into the remote server. 
 
-Type in your username when it prompts you and we should be granted access. You now have a command line interface into the remote server. 
+![Login screen](images/login1.png)
 
-![Find the Private key](images/login1.png)
-
-Whatever you type in this window will be executed on the remote server. 
-
+Ok! This is your command line interace to the remote server. Whatever you type in this window will be executed on the remote server.
 
 
 ## Directory structure and navigation
@@ -114,7 +102,7 @@ The files and folders on Linux are organised in the same way as they are in Wind
 
 As a user you have a home directory, *e.g.* the directory for user **pelotas1** is located at `/home/pelotas1`. Now that you have logged in you can see the "path" to your home directory:
 
-  pwd
+	pwd
 
 This command prints the path of the present working directory, your current location in the file system heirarchy. When you log into the remote computer, your initial present working directory is your home directory.
 
