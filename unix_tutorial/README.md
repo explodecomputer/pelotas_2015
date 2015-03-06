@@ -64,7 +64,9 @@ We will use a program called [Putty](http://www.putty.org/) to allow us to conne
 
 ## Transferring files
 
-We can transfer files between the local and remote computers by using an *SFTP client* (e.g. [WinSCP](http://winscp.net/) for Windows or [CyberDuck](https://cyberduck.io/?l=en) for Mac). Here is how it works for WinSCP. Open WinSCP and then type in the IP address and username:
+### Windows
+
+We can transfer files between the local and remote computers by using an *SFTP client* (e.g. [WinSCP](http://winscp.net/) for Windows). Here is how it works for WinSCP. Open WinSCP and then type in the IP address and username:
 
 > IP address: **54.94.200.249**    
 > Username: **pelotas[x]** e.g. pelotas25 or pelotas13
@@ -80,6 +82,11 @@ Success! You should see a new screen open up that looks like this:
 The left hand side is where you can view the files on the local computer, the right hand side is the remote computer that we've just connected to. You can copy files to and from local and remote computers by clicking and dragging the files from one panel to the other.
 
 Notice that the directory structure on the remote Linux computer can be navigated in exactly the same way as one would do on a Windows computer. In other words, the files are organized using a tree-like structure.  Consequently, clicking on a directory name displays the list of the files and directories within that directory. This is like moving away from the tree root from a main branch onto a smaller branch. Clicking the directory named ".." takes you back to the previous directory, closer to the root.
+
+### Mac
+
+One of the many free FTP clients available for Mac is [CyberDuck](https://cyberduck.io). It works in pretty much the same way as WinSCP, you type in the IP address in the **Server** field, the User name and password. Make sure that in the dropdown box at the top you have the **SFTP** option selected (not FTP!!). 
+
 
 ## Logging into the server 
 
