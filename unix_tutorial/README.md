@@ -62,7 +62,7 @@ We will use a program called [Putty](http://www.putty.org/) to allow us to conne
 
 # Practical
 
-### Transferring files
+## Transferring files
 
 We can transfer files between the local and remote computers by using an *SFTP client* (e.g. [WinSCP](http://winscp.net/) for Windows or [CyberDuck](https://cyberduck.io/?l=en) for Mac). Here is how it works for WinSCP. Open WinSCP and then type in the IP address and username:
 
@@ -81,7 +81,9 @@ The left hand side is where you can view the files on the local computer, the ri
 
 Notice that the directory structure on the remote Linux computer can be navigated in exactly the same way as one would do on a Windows computer. In other words, the files are organized using a tree-like structure.  Consequently, clicking on a directory name displays the list of the files and directories within that directory. This is like moving away from the tree root from a main branch onto a smaller branch. Clicking the directory named ".." takes you back to the previous directory, closer to the root.
 
-### Logging into the server 
+## Logging into the server 
+
+### Windows
 
 In Windows we will use "Putty" to open up a command line interface to the remote server so that we can interact with the remote computer by issuing commands and viewing results. To connect we need to tell "Putty" the remote server's address and our security credentials. Open up "Putty" and type in the IP address:
 
@@ -94,6 +96,19 @@ Type in your username and password when it prompts you and we should be granted 
 ![Login screen](images/login1.png)
 
 Ok! This is your command line interace to the remote server. Whatever you type in this window will be executed on the remote server.
+
+### Mac
+
+The Mac operating system is actually based on Unix, and it has a built in command line interface that we can use to either perform unix-like commands to control the Mac itself, or to log into other remote computers using ssh which will allow us to control the remote computer in the same way that Putty works on Windows. 
+
+1. Open up the **Terminal** application (Applications > Utilities > Terminal)
+2. If you are username pelotas1 then type in the following command
+
+		ssh pelotas1@54.94.200.249
+
+3. The first time you connect it will ask you to authorise the connection, press `y` and press `enter`
+4. It will ask for the password, type it in (notice that when you type it won't look like anything is happening - this is just a security feature, don't worry just type it in!)
+5. Done!
 
 
 ## Directory structure and navigation
