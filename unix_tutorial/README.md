@@ -26,7 +26,9 @@ Term | Explanation
 [SSH](http://en.wikipedia.org/wiki/Secure_Shell) | Secure shell - a program for connecting to a remote computer that enrypts everything sent between computers.
 [Putty](http://www.putty.org/) | A program that is used to connect from a local Windows computer to a remote Unix computer.
 SFTP client | A program that is used for transferring files to and from a local Windows computer and a remote computer.
+[Terminal](http://guides.macrumors.com/Terminal) | A Mac program that provides a command line interface and a Unix-like environment in Mac.
 [WinSCP](http://winscp.net/) | An example of an SFTP client.
+[CyberDuck](https://cyberduck.io/?l=en) | An SFTP program for the Mac
 [Public / private key pair](http://security.stackexchange.com/questions/25741/how-can-i-explain-the-concept-of-public-and-private-keys-without-technical-jargo) | A pair of files that are used to authenticate a user and can be used to connect to a server instead of having to type in a password.  One file is made public and is used to encrypt a message.  Once enrypted, a message cannot be read without the private key file to decrypt the message.
 [Script](http://linuxcommand.org/lc3_writing_shell_scripts.php) | A list of commands in a file that can be executed without user interaction.
 [Variable](http://en.wikipedia.org/wiki/Variable_%28computer_science%29) | A name and a memory location in the computer storing a value such as a number or sequence of characters. When a script with a variable is executed, the variable name is replaced with the value stored at the memory location. It is called a 'variable' because it is possible to make the script change the stored value as the script is executed. For example, a script that reads a file line by line could have a variable that stores the current line number being read.
@@ -57,6 +59,10 @@ We will use a program called [Putty](http://www.putty.org/) to allow us to conne
 ### Transferring files
 
 We can transfer files between the local and remote computers by using an *SFTP client* (e.g. [WinSCP](http://winscp.net/)). Open up WinSCP and then type in the IP address and username:
+
+> IP address: **54.94.200.249**
+> Username: **pelotas_x_** e.g. pelotas25 or pelotas13
+
 
 ![Remote server details](images/ip2.png)
 
