@@ -102,9 +102,11 @@ Ok! This is your command line interace to the remote server. Whatever you type i
 The Mac operating system is actually based on Unix, and it has a built in command line interface that we can use to either perform unix-like commands to control the Mac itself, or to log into other remote computers using ssh which will allow us to control the remote computer in the same way that Putty works on Windows. 
 
 1. Open up the **Terminal** application (Applications > Utilities > Terminal)
-2. If you are username pelotas1 then type in the following command
+2. If you are username pelotas100 then type in the following command
 
-		ssh pelotas1@54.94.200.249
+		ssh pelotas100@54.94.200.249
+
+	But just replace the `pelotas100` part of the command with your username
 
 3. The first time you connect it will ask you to authorise the connection, press `y` and press `enter`
 4. It will ask for the password, type it in (notice that when you type it won't look like anything is happening - this is just a security feature, don't worry just type it in!)
