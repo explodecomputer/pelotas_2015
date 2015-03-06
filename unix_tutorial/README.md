@@ -60,8 +60,8 @@ We will use a program called [Putty](http://www.putty.org/) to allow us to conne
 
 We can transfer files between the local and remote computers by using an *SFTP client* (e.g. [WinSCP](http://winscp.net/)). Open up WinSCP and then type in the IP address and username:
 
-> IP address: **54.94.200.249**
-> Username: **pelotas_x_** e.g. pelotas25 or pelotas13
+> IP address: **54.94.200.249**    
+> Username: **pelotas[x]** e.g. pelotas25 or pelotas13
 
 
 ![Remote server details](images/ip2.png)
