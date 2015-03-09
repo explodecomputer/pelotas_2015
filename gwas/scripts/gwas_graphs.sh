@@ -12,10 +12,14 @@ source ../../config
 # Here we use the gwas_graphs.R script to generate Q-Q and Manhattan plots
 # We pass to R the GWAS results file and the filename for the graphs to be saved to
 
-Rscript gwas_graphs.R ${datadir}/results/bmi.assoc.linear.add ../images/bmi_full
+# CRP full and approx models
 Rscript gwas_graphs.R ${datadir}/results/crp.assoc.linear.add ../images/crp_full
-Rscript gwas_graphs.R ${datadir}/results/hypertension.assoc.logistic.add ../images/hypertension_full
-
-Rscript gwas_graphs.R ${datadir}/results/bmi.qassoc ../images/bmi_approx
 Rscript gwas_graphs.R ${datadir}/results/crp.qassoc ../images/crp_approx
-Rscript gwas_graphs.R ${datadir}/results/hypertension.assoc ../images/hypertension_approx
+
+# BMI full and approx models
+Rscript < what goes here? >
+Rscript < what goes here? >
+
+# Hypertension full and approx models
+Rscript < what goes here? >
+Rscript < what goes here? >
