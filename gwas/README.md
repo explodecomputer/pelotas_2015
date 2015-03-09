@@ -75,15 +75,15 @@ Familiarise ourselves with the data:
 
 - How many individuals are there?
 
-		wc -l /pelotas_data/geno.fam
+		wc -l /pelotas_data/geno_unclean.fam
 
 - How many SNPs?
 
-		wc -l /pelotas_data/geno.bim
+		wc -l /pelotas_data/geno_unclean.bim
 
 - How many chromosomes?
 
-		awk '{ print $1 }' /pelotas_data/geno.bim | uniq
+		awk '{ print $1 }' /pelotas_data/geno_unclean.bim | uniq
 
 
 
@@ -96,13 +96,11 @@ Calculate summary statistics on the genotype data including
 - Genotype missingness
 
 		cd ~/pelotas_2015/gwas/scripts
+		less summary_stats.sh
+		less summary_stats.R
 		./summary_stats.sh
 
-- Generate some graphs from the summary statistics
-
-		R --no-save --args ../results/geno < summary_stats.R
-
-Use WinSCP to download these graphs to your local computer to view them. They are:
+- This script uses `summary_stats.R` script to generate some graphs. Use WinSCP to download these graphs to your local computer to view them. They are:
 
 - `../images/unclean_maf.pdf`
 - `../images/unclean_maf2.pdf`
