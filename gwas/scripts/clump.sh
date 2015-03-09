@@ -17,22 +17,8 @@ source ../../config
 # --clump-p1    Significance threshold
 # --out         Location to save results
 
-plink1.90 \
-	--bfile ${datadir}/geno_qc \
-	--clump ${datadir}/results/bmi.assoc.linear.add \
-	--clump-kb 5000 \
-	--clump-r2 0.0001 \
-	--clump-p1 5e-8 \
-	--out ../results/bmi
 
-plink1.90 \
-	--bfile ${datadir}/geno_qc \
-	--clump ${datadir}/results/crp.assoc.linear.add \
-	--clump-kb 5000 \
-	--clump-r2 0.0001 \
-	--clump-p1 5e-8 \
-	--out ../results/crp
-
+# Hypertension
 plink1.90 \
 	--bfile ${datadir}/geno_qc \
 	--clump ${datadir}/results/hypertension.assoc.logistic.add \
@@ -42,4 +28,20 @@ plink1.90 \
 	--out ../results/hypertension
 
 
+# BMI
+plink1.90 \
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
 
+# CRP
+plink1.90 \
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
