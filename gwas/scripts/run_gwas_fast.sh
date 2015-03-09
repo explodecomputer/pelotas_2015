@@ -35,18 +35,18 @@ plink1.90 \
 # CRP
 
 plink1.90 \
-	--bfile ${datadir}/geno_unclean \
-	--assoc \
-	--pheno ../data/phen.txt \
-	--mpheno 2 \
-	--out ../results/crp
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
 
 
 # Hypertension
 
 plink1.90 \
-	--bfile ${datadir}/geno_unclean \
-	--assoc \
-	--pheno ../data/phen.txt \
-	--mpheno 3 \
-	--out ../results/hypertension
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
+	< what goes here? >
