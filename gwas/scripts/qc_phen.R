@@ -28,17 +28,20 @@ sum(is.na(covars))
 # Clean and adjust BMI #
 ########################
 
-# Plot the distribution of BMI
-hist(phen$bmi, breaks=100)
 
-# It looks like there are some outliers. We can see the distribution better by restricting the x axis:
-hist(phen$bmi, breaks=100, xlim=c(10,60))
+pdf(file="../images/BMI_distribution.pdf")
+	# Plot the distribution of BMI
+	hist(phen$bmi, breaks=100)
 
-# There is a slight skew to the data, we can see that by plotting against theoretical quantiles from the normal distribution:
-qqnorm(phen$bmi)
+	# We can see the distribution better by restricting the x axis:
+	hist(phen$bmi, breaks=100, xlim=c(10,60))
 
-# Log transforming improves things slightly:
-qqnorm(log2(phen$bmi))
+	# We can test for skewness by plotting against theoretical quantiles from the normal distribution:
+	qqnorm(phen$bmi)
+
+	# And again but Log transforming:
+	qqnorm(log2(phen$bmi))
+dev.off()
 
 # Make a new variable which is log transformed BMI
 phen$lbmi <- log2(phen$bmi)
@@ -49,7 +52,10 @@ index <- phen$lbmi < (mean(phen$lbmi) - 4*sd(phen$lbmi)) | phen$lbmi > (mean(phe
 phen$lbmi[index] <- NA
 
 # How does the data look now?
-hist(phen$lbmi, breaks=100)
+pdf(file="../images/BMI_distribution_log_no_outliers.pdf")
+	hist(phen$lbmi, breaks=100)
+	qqnorm(phen$lbmi)
+dev.off()
 
 # BMI is weight / height^2
 # If there is a systematic difference in height between males and females then BMI will have a systematic difference in variance between males and females
@@ -75,8 +81,10 @@ tapply(phen$bmi_adjusted, covars$sex, function(x) mean(x, na.rm=T))
 tapply(phen$bmi_adjusted, covars$sex, function(x) sd(x, na.rm=T))
 
 # Still looks normal
-hist(phen$bmi_adjusted, breaks=100)
-qqnorm(phen$bmi_adjusted)
+pdf(file="../images/BMI_distribution_adjusted.pdf")
+	hist(phen$bmi_adjusted, breaks=100)
+	qqnorm(phen$bmi_adjusted)
+dev.off()
 
 # Scale the phenotype to have mean and sd prior to adjusting for sex
 phen$bmi_adjusted <- phen$bmi_adjusted * sd(phen$lbmi, na.rm=T) + mean(phen$lbmi, na.rm=T)
@@ -95,12 +103,16 @@ summary(lm(phen$lbmi ~ as.matrix(covars[,-c(1:2)])))
 
 
 # CRP distribution
-hist(phen$crp, breaks=100)
-qqnorm(phen$crp)
+pdf(file="../images/CRP_distribution.pdf")
+	hist(phen$crp, breaks=100)
+	qqnorm(phen$crp)
+dev.off()
 
 # log transform
-hist(log(phen$crp), breaks=100)
-qqnorm(log(phen$crp))
+pdf(file="../images/CRP_distribution_log.pdf")
+	hist(log(phen$crp), breaks=100)
+	qqnorm(log(phen$crp))
+dev.off()
 
 # Looks like there is one major outlier but log transformation does a good job of making the rest of the samples normally distributed
 
@@ -108,6 +120,9 @@ qqnorm(log(phen$crp))
 # note: logging zero values is to be avoided!
 table(phen$crp == 0) # No zero values here
 phen$lcrp <- log2(phen$crp)
+
+# Remove outlier
+phen$lcrp[phen$lcrp > 5] <- NA
 
 # Associated with covariates
 summary(lm(phen$lcrp ~ as.matrix(covars[,-c(1:2)])))
@@ -150,18 +165,23 @@ popstrat$ourdata[popstrat$population=="Our data"] <- TRUE
 
 library(ggplot2)
 
-# This colours each population differently
-qplot(data=popstrat, x=PC1, y=PC2, geom="point", colour=ourdata)
 
-# This colours our data differently from all the other data
-qplot(data=popstrat, x=PC1, y=PC2, geom="point", colour=population)
+png(file="../images/populations1.png")
+	# This colours each population differently
+	qplot(data=popstrat, x=PC1, y=PC2, geom="point", colour=ourdata)
+dev.off()
 
-# This is the same as the previous graph but looking at PCs 3 and 4
-qplot(data=popstrat, x=PC3, y=PC4, geom="point", colour=ourdata)
+png(file="../images/populations2.png")
+	# This colours our data differently from all the other data
+	qplot(data=popstrat, x=PC1, y=PC2, geom="point", colour=population)
+dev.off()
 
-# It looks like all of our data cluster nicely within a single population
+png(file="../images/populations3.png")
+	# This is the same as the previous graph but looking at PCs 3 and 4
+	qplot(data=popstrat, x=PC3, y=PC4, geom="point", colour=ourdata)
+dev.off()
 
-
+	# It looks like all of our data cluster nicely within a single population
 
 
 
