@@ -59,6 +59,6 @@ This will generate the files `~/pelotas_2015/gwas/data/phen.txt` and `~/pelotas_
 
 3. 	Calculate SNP heritabilities with and without covariates. What are the SNP heritabilities for each of the traits and how do the estimates differ when covariates are not included? Use the commands in `estimate_heritability.sh` to do this.
 
-4. 	In addition to estimating the SNP heritability of each trait, we can calculate how similar the genetic effects are for a pair of traits, also known as the genetic correlation. Perform bivariate GREML analysis to calculate genetic correlations between each pair of traits. Use the commands in `estimate_heritability.sh` to do this.
+4. 	In addition to estimating the SNP heritability of each trait, we can calculate how similar the genetic effects are for a pair of traits, also known as the genetic correlation. Perform bivariate GREML analysis to calculate genetic correlations between each pair of traits. Use the commands in `estimate_bivariate.sh` to do this.
 
 5. 	Construct two GRMs, one using chromosomes 1-8 and another using 9-22. Estimate the heritability of each GRM separately and both combined. Do this with and without covariates included. Is the sum of heritabilities for each chromosome the same as that for the entire genome? Use the commands in `grm_partitioning.sh` to do this.
