@@ -39,7 +39,7 @@ Update the repository
 Make sure that the QC'd phenotype and covariate file from the GWAS are available in `../../gwas/data`. If not run:
 
     cd ~/pelotas_2015/gwas/scripts/
-    R --no-save < qc.R
+    R --no-save < qc_phen.R
 
 This will generate the files `~/pelotas_2015/gwas/data/phen.txt` and `~/pelotas_2015/gwas/data/covs.txt`.
 
@@ -55,13 +55,11 @@ This will generate the files `~/pelotas_2015/gwas/data/phen.txt` and `~/pelotas_
 	    cp /pelotas_data/whole_genome/geno_qc.grm* ~/pelotas_2015/whole_genome/data/
 
 
-2. 	Calculate SNP heritabilities with and without covariates. What are the SNP heritabilities for each of the traits and how do the estimates differ when covariates are not included? Use the commands in `estimate_heritability.sh` to do this.
-
-
-3. 	We have now calculated a genetic relationship value for every pair of individuals. If the sample comprises only 'unrelated' individuals then each pair of individuals should have a genetic relationship less than 0.05 (and a relationship with themselves of approximately 1). Use the `analyse_grm.R` script to read in the GRM files into R and plot the distribution of relationships. 
+2. 	We have now calculated a genetic relationship value for every pair of individuals. If the sample comprises only 'unrelated' individuals then each pair of individuals should have a genetic relationship less than 0.05 (and a relationship with themselves of approximately 1). Use the `analyse_grm.R` script to read in the GRM files into R and plot the distribution of relationships. 
 
 	Why is it important to make sure that related individuals are not included in this analysis?
 
+3. 	Calculate SNP heritabilities with and without covariates. What are the SNP heritabilities for each of the traits and how do the estimates differ when covariates are not included? Use the commands in `estimate_heritability.sh` to do this.
 
 4. 	In addition to estimating the SNP heritability of each trait, we can calculate how similar the genetic effects are for a pair of traits, also known as the genetic correlation. Perform bivariate GREML analysis to calculate genetic correlations between each pair of traits. Use the commands in `estimate_heritability.sh` to do this.
 
