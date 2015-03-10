@@ -30,6 +30,10 @@ When genetic similarity is calculated by using SNPs then we are no longer estima
 
 ## Setup
 
+Make sure you have [putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) and [WinSCP](http://winscp.net/eng/download.php) downloaded and installed. Connect to the server using the following host IP address:
+
+> **54.94.231.196**
+
 Make sure that the QC'd phenotype and covariate file from the GWAS are available in `../../gwas/data`. If not run:
 
     cd ~/pelotas_2015/gwas/scripts/
