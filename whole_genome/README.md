@@ -30,12 +30,6 @@ When genetic similarity is calculated by using SNPs then we are no longer estima
 
 ## Setup
 
-Update the repository
-
-    cd ~/pelotas_2015
-    git pull
-
-
 Make sure that the QC'd phenotype and covariate file from the GWAS are available in `../../gwas/data`. If not run:
 
     cd ~/pelotas_2015/gwas/scripts/
